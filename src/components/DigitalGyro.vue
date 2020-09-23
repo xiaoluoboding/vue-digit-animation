@@ -2,10 +2,14 @@
   <div class="digital-gyro">
     <template v-for="(item, index) in digits">
       <div class="digital-gyro--item">
-        <div class="digit" :style="digitStyle(index)">
-          <span>0 9 8 7 6 5 4 3 2 1 0</span>
-          <!-- 09876543210 -->
+        <div
+          v-if="isNumber(parseInt(item, 10))"
+          class="digit"
+          :style="digitStyle(index)"
+        >
+          <span>{{ verticalDigit.join(' ') }}</span>
         </div>
+        <div class="digit" v-else>,</div>
       </div>
     </template>
   </div>
@@ -13,17 +17,19 @@
 
 <script lang="ts">
 import { ref, computed, defineComponent, onMounted, PropType } from 'vue'
+import numeral from 'numeral'
 
-type IAnimationType = PropType<'default' | 'flip' | 'countup'>
+type IAnimationType = PropType<'default' | 'slide' | 'countup'>
 
 interface DigitProps {
-  el: HTMLElement
-  value: number
-  animation: string
-  wave: boolean
+  el: HTMLElement // the el which component mounted
+  digit: number // the digit value
+  animation: string // animation type
   format: string
   duration: number
   padZero: number
+  thousandSeparated: boolean
+  stagger: boolean
 }
 
 // const el = ref<HTMLElement | null>(null)
@@ -35,7 +41,7 @@ export default defineComponent({
       type: [String, HTMLElement],
       default: null
     },
-    value: {
+    digit: {
       type: Number,
       default: 0
     },
@@ -43,13 +49,9 @@ export default defineComponent({
       type: String as IAnimationType,
       default: 'flip'
     },
-    wave: {
-      type: Boolean,
-      default: false
-    },
     format: {
       type: String,
-      default: 'dd'
+      default: '0,0'
     },
     duration: {
       type: Number,
@@ -58,45 +60,80 @@ export default defineComponent({
     padZero: {
       type: Number,
       default: 0
+    },
+    thousandSeparated: {
+      type: Boolean,
+      default: false
+    },
+    stagger: {
+      type: Boolean,
+      default: false
     }
   },
   setup(props) {
-    const digit = ref(props.value)
+    const digitCollection = Array.from('09876543210')
+    const verticalDigit = ref(digitCollection)
+    // const digit = ref(props.digit)
+
+    const isNumber = (val: number): boolean => typeof val === 'number' && val === val
 
     // pads zero from the start of the digit
-    const digits = computed(() => {
-      let digits = props.value.toString()
+    const digits = computed((): string[] => {
+      let digits: string
+      let digitsLength: number
+      let separatedLength: number
 
-      if (props.padZero > Array.from(digits).length) {
-        digits = digits.padStart(props.padZero, '0')
+      // thousand separated
+      if (props.thousandSeparated) {
+        digits = numeral(props.digit).format(props.format)
+        digitsLength = Array.from(digits).filter(item => isNumber(parseInt(item, 10))).length
+        separatedLength = digits.length - digitsLength
+      } else {
+        digits = props.digit.toString()
+        digitsLength = Array.from(digits).length
+        separatedLength = 0
+      }
+
+      if (props.padZero > digitsLength) {
+        digits = digits.padStart(props.padZero + separatedLength, '0')
       }
 
       return Array.from(digits)
     })
 
     const digitStyle = (index: number): object => {
-      const flipStyle = {
-        transform: `translateY(${-10 + parseInt(digits.value[index], 10)}em)`,
-        transition: `${props.duration || 1000 + index * 100}ms`
+      const digitLength = digitCollection.length - 1
+      /**
+       * calc formula
+       * @demo 5 - digitLength = -5em
+       * transform: `translateY(${(5 - 10)em})`
+       * transition: `${props.duration}ms`
+       */
+      const slideStyle = {
+        transform: `translateY(${parseInt(digits.value[index], 10) - digitLength}em)`,
+        transition: `${(props.duration || 1000) + index * (props.stagger ? 200 : 0)}ms`
       }
 
-      return flipStyle
+      return slideStyle
     }
+
+    // const digitize = (n: number): number[] => [...`${n}`].map(i => parseInt(i))
 
     onMounted(() => {
       console.log(props)
     })
 
     return {
-      digit,
+      verticalDigit,
       digits,
-      digitStyle
+      digitStyle,
+      isNumber
     }
   }
 })
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 // $unit-of-speed: 50ms; // crazy fast
 // $unit-of-speed: 500ms; // normal
 $unit-of-speed: 5000ms; // boring
@@ -135,7 +172,7 @@ $unit-of-speed: 5000ms; // boring
   &--item {
     display: inline-block;
     height: 1em;
-    width: 1em;
+    width: calc(1em * 0.8);
     overflow: hidden;
     font-size: 6em;
     // @include digit-item-styling();

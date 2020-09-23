@@ -1,6 +1,11 @@
 <template>
   <div class="main">
-    <DigitalGyro :value="digit" :pad-zero="4" />
+    <DigitalGyro
+      stagger
+      :digit="digit"
+      :pad-zero="9"
+      :thousandSeparated="true"
+    />
     <div class="operation">
       <button @click="randomNumber">Random Number</button>
     </div>
@@ -21,13 +26,13 @@ export default defineComponent({
     let timer: number
 
     const randomNumber = () => {
-      digit.value = Math.floor(Math.random() * Math.floor(10000))
+      digit.value = Math.floor(Math.random() * Math.floor(1000000000))
     }
 
     // onMounted(() => {
     //   timer = setInterval(() => {
     //     randomNumber()
-    //   }, 1333)
+    //   }, 3333)
     // })
 
     // onBeforeUnmount(() => {
