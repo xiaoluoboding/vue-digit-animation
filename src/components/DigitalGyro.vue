@@ -2,7 +2,9 @@
   <div class="digital-gyro">
     <div
       v-for="(item, index) in digits"
-      class="digital-gyro--item"
+      class="digital-gyro__item"
+      :class="`digital-gyro--${ensureDigitClass(item)}`"
+      :style="digitalGyroStyle"
       :key="index"
     >
       <div v-if="isDigit(item)" class="digit" :style="[digitStyle(index)]">
@@ -23,9 +25,11 @@ import {
   defineComponent
 } from 'vue'
 import numeral from 'numeral'
-import '../utils/formatZhNumber'
+
+import { easingMap } from '../utils/index'
 
 type IAnimationType = PropType<'default' | 'slide' | 'countup'>
+type IEaseType = PropType<'Linear' | 'Ease'>
 
 export interface DigitProps {
   el: HTMLElement // the el which component mounted
@@ -33,6 +37,7 @@ export interface DigitProps {
   animation: string // animation type
   duration: number // animation duration in milliseconds (1000)
   stagger: boolean // whether animation display with stagger
+  useEase: string // transition easing function
   format: string // proivde number format use numeral (0,0)
 }
 
@@ -61,6 +66,14 @@ export default defineComponent({
       type: Boolean,
       default: false
     },
+    gutter: {
+      type: Number,
+      default: 0
+    },
+    useEase: {
+      type: String as IEaseType,
+      default: 'Ease'
+    },
     format: {
       type: String,
       default: '0,0'
@@ -79,20 +92,39 @@ export default defineComponent({
       return isNumber(parseInt(val, 10))
     }
 
+    const ensureDigitClass = (val: string): string => {
+      const isWord = /[a-zA-Z]/
+      const isChinese = /[\u4E00-\u9FA5]/
+      const isDigit = /\d/
+
+      if (isWord.test(val)) return 'word'
+      if (isChinese.test(val)) return 'chinese'
+      if (isDigit.test(val)) return 'digit'
+      return 'symbol'
+    }
+
     const digits = computed((): string[] => {
       const digits = numeral(props.digit).format(props.format)
 
       return Array.from(digits)
     })
 
+    const digitalGyroStyle = computed((): object => {
+      return {
+        padding: `0 ${props.gutter}px`
+      }
+    })
+
     const digitStyle = (index: number): object => {
       const digitLength = digitCollection.length - 1
+      const transDuration = `${props.duration + (props.stagger ? 200 : 0) * index}ms`
+      const transEaseFunction = easingMap[props.useEase] || 'ease'
       /**
        * calc formula
        */
       const slideStyle = {
         transform: `translateY(${parseInt(digits.value[index], 10) - digitLength}em)`,
-        transition: `${(props.duration || 1000) + index * (props.stagger ? 200 : 0)}ms`
+        transition: `${transDuration} ${transEaseFunction}`
       }
 
       return slideStyle
@@ -112,7 +144,9 @@ export default defineComponent({
       digits,
       isDigit,
       digitStyle,
-      verticalDigit
+      verticalDigit,
+      digitalGyroStyle,
+      ensureDigitClass
     }
   }
 })
@@ -128,16 +162,25 @@ export default defineComponent({
   // @include digit-styling();
   display: inline-block;
   height: 1em;
-  &--item {
+  &__item {
     display: inline-block;
     height: 1em;
-    width: 1em;
     overflow: hidden;
     // @include digit-item-styling();
   }
 
+  &--digit,
+  &--symbol {
+    width: 1ch;
+  }
+
+  &--word,
+  &--chinese {
+    width: 1em;
+  }
+
   .digit {
-    line-height: 1em;
+    line-height: 1;
     @include animation(slide infinite linear);
   }
 }
