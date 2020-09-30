@@ -8,7 +8,7 @@
       :key="index"
     >
       <div v-if="isDigit(item)" class="digit" :style="[digitStyle(index)]">
-        <span>{{ verticalDigit.join(' ') }}</span>
+        <span>{{ verticalDigit }}</span>
       </div>
       <div class="digit" v-else>{{ item }}</div>
     </div>
@@ -81,7 +81,7 @@ export default defineComponent({
   },
   setup(props) {
     const digitCollection = Array.from('09876543210')
-    const verticalDigit = ref(digitCollection)
+    const verticalDigit = ref(digitCollection.join(' '))
     // const digit = ref(props.digit)
 
     const isNumber = (val: number): boolean => {
@@ -93,11 +93,11 @@ export default defineComponent({
     }
 
     const ensureDigitClass = (val: string): string => {
-      const isWord = /[a-zA-Z]/
+      const isLetter = /[a-zA-Z]/
       const isChinese = /[\u4E00-\u9FA5]/
       const isDigit = /\d/
 
-      if (isWord.test(val)) return 'word'
+      if (isLetter.test(val)) return 'letter'
       if (isChinese.test(val)) return 'chinese'
       if (isDigit.test(val)) return 'digit'
       return 'symbol'
@@ -116,14 +116,16 @@ export default defineComponent({
     })
 
     const digitStyle = (index: number): object => {
+      const digitValue = parseInt(digits.value[index], 10)
       const digitLength = digitCollection.length - 1
       const transDuration = `${props.duration + (props.stagger ? 200 : 0) * index}ms`
       const transEaseFunction = easingMap[props.useEase] || 'ease'
+
       /**
        * calc formula
        */
       const slideStyle = {
-        transform: `translateY(${parseInt(digits.value[index], 10) - digitLength}em)`,
+        transform: `translateY(${digitValue - digitLength}em)`,
         transition: `${transDuration} ${transEaseFunction}`
       }
 
@@ -174,7 +176,7 @@ export default defineComponent({
     width: 1ch;
   }
 
-  &--word,
+  &--letter,
   &--chinese {
     width: 1em;
   }

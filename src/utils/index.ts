@@ -1,8 +1,9 @@
 import '../utils/formatZhNumber'
 import '../utils/formatColonTime'
 import '../utils/formatLocalDate'
+import CircleLinkedList from './circleLinkedList'
 
-export const easingMap = {
+const easingMap = {
   'Cubic.easeInOut': 'cubic-bezier(0.65, 0, 0.35, 1)',
   'Cubic.easeIn': 'cubic-bezier(0.32, 0, 0.67, 0)',
   'Cubic.easeOut': 'cubic-bezier(0.33, 1, 0.68, 1)',
@@ -37,4 +38,24 @@ export const easingMap = {
 
   'Linear': 'linear',
   'Ease': 'ease'
+}
+
+const circleLinkedDigit = new CircleLinkedList()
+
+circleLinkedDigit
+  .insert("0", "head")
+  .insert("9", "0")
+  .insert("8", "9")
+  .insert("7", "8")
+  .insert("6", "7")
+  .insert("5", "6")
+  .insert("4", "5")
+  .insert("3", "4")
+  .insert("2", "3")
+  .insert("1", "2")
+  .insert("0", "1")
+
+export {
+  easingMap,
+  circleLinkedDigit
 }

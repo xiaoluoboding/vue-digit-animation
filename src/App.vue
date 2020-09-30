@@ -2,15 +2,24 @@
   <div class="main">
     <DigitalGyro
       animation="slide"
+      format="0,0.00"
+      useEase="Quit.easeInOut"
+      :stagger="false"
+      :digit="digit"
+      :gutter="8"
+      :duration="2000"
+    />
+    <DigitalGyro
+      animation="slide"
       format="HHmmss"
       useEase="Linear"
       :stagger="false"
-      :digit="digit"
+      :digit="datetime"
       :gutter="8"
       :duration="666"
     />
     <div class="operation">
-      <button @click="randomNumber">Random Number</button>
+      <button @click="randomDigit">Random Number</button>
     </div>
   </div>
 </template>
@@ -22,27 +31,37 @@ export default defineComponent({
   name: 'App',
   setup() {
     const digit = ref(9527)
-    let timer: number
+    const datetime = ref(Math.floor(new Date().getTime()))
+    let digitTimer: number
+    let dateTimeTimer: number
 
-    const randomNumber = () => {
+    const randomDigit = () => {
       // digit.value = Math.floor(Math.random() * Math.floor(1000000))
-      // digit.value = parseFloat(Math.floor(Math.random() * Math.floor(10000000)) + Math.random().toFixed(4))
-      digit.value = Math.floor(new Date().getTime())
+      digit.value = parseFloat(Math.floor(Math.random() * Math.floor(10000000)) + Math.random().toFixed(4))
     }
 
-    // onMounted(() => {
-    //   timer = setInterval(() => {
-    //     randomNumber()
-    //   }, 1000)
-    // })
+    const getNowTime = () => {
+      datetime.value = Math.floor(new Date().getTime())
+    }
 
-    // onBeforeUnmount(() => {
-    //   clearInterval(timer)
-    // })
+    onMounted(() => {
+      digitTimer = setInterval(() => {
+        randomDigit()
+      }, 3333)
+      dateTimeTimer = setInterval(() => {
+        getNowTime()
+      }, 1000)
+    })
+
+    onBeforeUnmount(() => {
+      clearInterval(digitTimer)
+      clearInterval(dateTimeTimer)
+    })
 
     return {
       digit,
-      randomNumber
+      datetime,
+      randomDigit
     }
   }
 })
@@ -67,7 +86,7 @@ body {
 
 .digital-gyro {
   font-size: 6em;
-  background-image: linear-gradient(90deg, #ff3278, #0ab9e6);
+  // background-image: linear-gradient(90deg, #ff3278, #0ab9e6);
   padding: 20px;
 }
 
