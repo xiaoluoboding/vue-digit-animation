@@ -13,7 +13,7 @@ export const directive: ObjectDirective = {
   mounted: (el: HTMLElement, binding: DirectiveBinding<string>) => {
     const { value } = binding
     if (value) {
-      el.classList.add(`slide-height-1`)
+      el.classList.add(`slide-offset-5`)
       el.setAttribute('data-digit', value)
     }
   },
@@ -23,9 +23,9 @@ export const directive: ObjectDirective = {
     
     if (oldValue !== null) {
       el.classList.remove(`is-digit`)
-      el.classList.remove(`slide-height-1`)
+      el.classList.remove(`slide-offset-5`)
       el.style.transition = ''
-      // el.classList.add(`slide-height-${newDigit}`)
+      // el.classList.add(`slide-offset-${newDigit}`)
     }
   },
   updated: (el: HTMLElement, binding: DirectiveBinding<VSlideProps>) => {
@@ -37,8 +37,8 @@ export const directive: ObjectDirective = {
     if (oldValue !== null) {
       setTimeout(() => {
         el.classList.add(`is-digit`)
-        el.classList.add(`slide-height-1`, )
-        // el.classList.remove(`slide-height-${newDigit}`)
+        el.classList.add(`slide-offset-5`)
+        // el.classList.remove(`slide-offset-${newDigit}`)
         el.style.transition = value.transition
       }, 17)
     }

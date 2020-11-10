@@ -56,28 +56,18 @@ export default defineComponent({
 
     const verticalDigit = computed((): string => {
       const { value } = props
-      const slideDigit = Number(value) - 4
-      const offsetDigit = slideDigit < 0 ? slideDigit + 10 : slideDigit
-      const digitCollection = circleLinkedDigit.getCircleMiddle(offsetDigit.toString())
+      // const slideDigit = Number(value) - 4
+      // const offsetDigit = slideDigit < 0 ? slideDigit + 10 : slideDigit
+      // const digitCollection = circleLinkedDigit.getCircleMiddle(offsetDigit.toString())
+      const digitCollection = circleLinkedDigit.getCircleMiddle(value)
 
       // return digitCollection.slice(4, 7).join(' ')
       return digitCollection.join(' ')
     })
 
     const digitStyle = computed((): string => {
-      // const digitValue = parseInt(digits.value[index], 10)
-      // const digitLength = digitCollection.length - 1
       const transDuration = `${props.duration + (props.stagger ? 200 : 0) * props.index}ms`
       const transEaseFunction = easingMap[props.useEase] || 'ease'
-
-      /**
-       * calc formula
-       */
-      // const slideStyle = {
-      //   // transform: `translateY(${digitValue - digitLength}em)`,
-      //   // transform: `translateY(-5em)`,
-      //   transition: `${transDuration} ${transEaseFunction}`
-      // }
 
       return `${transDuration} ${transEaseFunction}`
     })
@@ -93,14 +83,13 @@ export default defineComponent({
 
 <style lang="scss">
 @for $i from 0 through 10 {
-  .slide-height-#{10 - $i} {
-    --slide-height: #{$i - 10}em;
+  .slide-offset-#{10 - $i} {
+    --slide-offset: #{$i - 10}em;
   }
 }
 
 .digit.is-digit {
-  transform: translateY(var(--slide-height));
-  // transform: translateY(-100%);
+  transform: translateY(var(--slide-offset));
   // transition: all 666ms;
 }
 </style>
