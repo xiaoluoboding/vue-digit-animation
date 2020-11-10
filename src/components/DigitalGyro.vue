@@ -1,16 +1,19 @@
 <template>
   <div class="digital-gyro">
     <div
-      v-for="(item, index) in digits"
+      v-for="(digit, index) in digits"
       class="digital-gyro__item"
-      :class="`digital-gyro--${ensureDigitClass(item)}`"
+      :class="`digital-gyro--${ensureDigitClass(digit)}`"
       :style="digitalGyroStyle"
       :key="index"
     >
-      <div v-if="isDigit(item)" class="digit" :style="[digitStyle(index)]">
-        <span>{{ verticalDigit }}</span>
-      </div>
-      <div class="digit" v-else>{{ item }}</div>
+      <Digit
+        :value="digit"
+        :index="index"
+        :duration="duration"
+        :stagger="stagger"
+        :use-ease="useEase"
+      />
     </div>
   </div>
 </template>
@@ -20,13 +23,15 @@ import {
   ref,
   computed,
   onMounted,
+  onBeforeUpdate,
   onUpdated,
   PropType,
   defineComponent
 } from 'vue'
 import numeral from 'numeral'
 
-import { easingMap } from '../utils/index'
+import Digit from './Digit.vue'
+import { circleLinkedDigit } from '../utils/index'
 
 type IAnimationType = PropType<'default' | 'slide' | 'countup'>
 type IEaseType = PropType<'Linear' | 'Ease'>
@@ -45,6 +50,9 @@ export interface DigitProps {
 
 export default defineComponent({
   name: 'DigitalGyro',
+  components: {
+    Digit
+  },
   props: {
     el: {
       type: [String, HTMLElement],
@@ -80,8 +88,10 @@ export default defineComponent({
     }
   },
   setup(props) {
-    const digitCollection = Array.from('09876543210')
+    // const digitCollection = Array.from('09876543210')
+    const digitCollection = circleLinkedDigit.getCircleMiddle('5')
     const verticalDigit = ref(digitCollection.join(' '))
+    // const isUpdated = ref(true)
     // const digit = ref(props.digit)
 
     const isNumber = (val: number): boolean => {
@@ -103,6 +113,13 @@ export default defineComponent({
       return 'symbol'
     }
 
+    const ensureDigit = (val: string): string => {
+      const digitCollection = circleLinkedDigit.getCircleMiddle(val)
+      const verticalDigit = digitCollection.join(' ')
+
+      return verticalDigit
+    }
+
     const digits = computed((): string[] => {
       const digits = numeral(props.digit).format(props.format)
 
@@ -115,22 +132,23 @@ export default defineComponent({
       }
     })
 
-    const digitStyle = (index: number): object => {
-      const digitValue = parseInt(digits.value[index], 10)
-      const digitLength = digitCollection.length - 1
-      const transDuration = `${props.duration + (props.stagger ? 200 : 0) * index}ms`
-      const transEaseFunction = easingMap[props.useEase] || 'ease'
+    // const digitStyle = (index: number): object => {
+    //   const digitValue = parseInt(digits.value[index], 10)
+    //   const digitLength = digitCollection.length - 1
+    //   const transDuration = `${props.duration + (props.stagger ? 200 : 0) * index}ms`
+    //   const transEaseFunction = easingMap[props.useEase] || 'ease'
 
-      /**
-       * calc formula
-       */
-      const slideStyle = {
-        transform: `translateY(${digitValue - digitLength}em)`,
-        transition: `${transDuration} ${transEaseFunction}`
-      }
+    //   /**
+    //    * calc formula
+    //    */
+    //   const slideStyle = {
+    //     // transform: `translateY(${digitValue - digitLength}em)`,
+    //     transform: `translateY(-5em)`,
+    //     transition: `${transDuration} ${transEaseFunction}`
+    //   }
 
-      return slideStyle
-    }
+    //   return slideStyle
+    // }
 
     // const digitize = (n: number): number[] => [...`${n}`].map(i => parseInt(i))
 
@@ -138,15 +156,20 @@ export default defineComponent({
       console.log(props)
     })
 
+    onBeforeUpdate(() => {
+      // isUpdated.value = false
+    })
+
     onUpdated(() => {
-      console.info(props.digit, digits.value)
+      // isUpdated.value = true
     })
 
     return {
       digits,
       isDigit,
-      digitStyle,
+      // digitStyle,
       verticalDigit,
+      ensureDigit,
       digitalGyroStyle,
       ensureDigitClass
     }
@@ -155,10 +178,10 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-@mixin animation($single-animation) {
-  -webkit-animation: $single-animation;
-  animation: $single-animation;
-}
+// @mixin animation($single-animation) {
+//   -webkit-animation: $single-animation;
+//   animation: $single-animation;
+// }
 
 .digital-gyro {
   // @include digit-styling();
@@ -183,22 +206,32 @@ export default defineComponent({
 
   .digit {
     line-height: 1;
-    @include animation(slide infinite linear);
+    // @include animation(slide infinite linear);
   }
 }
 
-@keyframes slide {
-  from {
-    transform: translateY(-10em);
-  }
+// @keyframes slide {
+//   from {
+//     transform: translateY(-10em);
+//   }
 
-  to {
-    transform: translateY(0);
-  }
-}
+//   to {
+//     transform: translateY(0);
+//   }
+// }
 </style>
 
 <style lang="scss">
+/* Enter and leave animations can use different */
+/* durations and timing functions.              */
+.slide-enter-active {
+  transition: all 666ms linear;
+}
+
+.slide-enter,
+.slide-leave-to {
+  transform: translateY(-5em);
+}
 // $unit-of-speed: 50ms; // crazy fast
 // $unit-of-speed: 500ms; // normal
 // $unit-of-speed: 5000ms; // boring

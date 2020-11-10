@@ -1,5 +1,6 @@
 import { App } from 'vue'
 import DigitalGyro from './DigitalGyro.vue'
+import SlideDirective from './SlideDirective'
 
 export interface DigitProps {
   el: HTMLElement // the el which component mounted
@@ -13,4 +14,5 @@ export interface DigitProps {
 
 export default (app: App): void => {
   app.component(DigitalGyro.name, DigitalGyro)
+  app.use(SlideDirective, 'slide')
 }

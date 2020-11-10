@@ -19,7 +19,7 @@ const easingMap = {
   'Quart.easeIn': 'cubic-bezier(0.5, 0, 0.75, 0)',
   'Quart.easeOut': 'cubic-bezier(0.25, 1, 0.5, 1)',
   'Quart.easeInOut': 'cubic-bezier(0.76, 0, 0.24, 1)',
-  
+
   'Quint.easeIn': 'cubic-bezier(0.64, 0, 0.78, 0)',
   'Quint.easeOut': 'cubic-bezier(0.22, 1, 0.36, 1)',
   'Quint.easeInOut': 'cubic-bezier(0.83, 0, 0.17, 1)',
@@ -43,19 +43,16 @@ const easingMap = {
 const circleLinkedDigit = new CircleLinkedList()
 
 circleLinkedDigit
-  .insert("0", "head")
-  .insert("9", "0")
-  .insert("8", "9")
-  .insert("7", "8")
-  .insert("6", "7")
-  .insert("5", "6")
-  .insert("4", "5")
-  .insert("3", "4")
-  .insert("2", "3")
-  .insert("1", "2")
-  .insert("0", "1")
+  .insert('0', 'head')
+  .insert('9', '0')
+  .insert('8', '9')
+  .insert('7', '8')
+  .insert('6', '7')
+  .insert('5', '6')
+  .insert('4', '5')
+  .insert('3', '4')
+  .insert('2', '3')
+  .insert('1', '2')
+  .insert('0', '1')
 
-export {
-  easingMap,
-  circleLinkedDigit
-}
+export { easingMap, circleLinkedDigit }

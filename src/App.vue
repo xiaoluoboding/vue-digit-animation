@@ -4,10 +4,10 @@
       animation="slide"
       format="0,0.00"
       useEase="Quit.easeInOut"
-      :stagger="false"
+      :stagger="true"
       :digit="digit"
       :gutter="8"
-      :duration="2000"
+      :duration="1000"
     />
     <DigitalGyro
       animation="slide"
@@ -16,7 +16,7 @@
       :stagger="false"
       :digit="datetime"
       :gutter="8"
-      :duration="666"
+      :duration="100"
     />
     <div class="operation">
       <button @click="randomDigit">Random Number</button>
@@ -37,7 +37,7 @@ export default defineComponent({
 
     const randomDigit = () => {
       // digit.value = Math.floor(Math.random() * Math.floor(1000000))
-      digit.value = parseFloat(Math.floor(Math.random() * Math.floor(10000000)) + Math.random().toFixed(4))
+      digit.value = parseFloat(Math.floor(Math.random() * Math.floor(100000)) + Math.random().toFixed(4))
     }
 
     const getNowTime = () => {
@@ -48,6 +48,7 @@ export default defineComponent({
       digitTimer = setInterval(() => {
         randomDigit()
       }, 3333)
+      // getNowTime()
       dateTimeTimer = setInterval(() => {
         getNowTime()
       }, 1000)
@@ -68,8 +69,14 @@ export default defineComponent({
 </script>
 
 <style lang="scss">
+html,
 body {
-  background-color: #313131;
+  height: 100%;
+}
+
+body {
+  background: radial-gradient(ellipse at center, #0a2e38 0%, #000000 70%);
+  background-size: 100%;
   font-size: 16px;
 }
 
@@ -81,12 +88,17 @@ body {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: hsla(255, 100%, 100%, .8);
-  margin-top: 30vh;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
 }
 
 .digital-gyro {
   font-size: 6em;
   // background-image: linear-gradient(90deg, #ff3278, #0ab9e6);
+  color: #daf6ff;
+  text-shadow: 0 0 12px #0ab9e6, 0 0 12px rgba(10, 175, 230, 0);
   padding: 20px;
 }
 

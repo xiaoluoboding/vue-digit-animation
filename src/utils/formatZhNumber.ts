@@ -8,7 +8,7 @@ numeral.register('format', 'zh-number', {
   format: function (value: number, format: string) {
     // check if has the space
     const space = numeral._.includes(format, ' zh') ? ' ' : ''
-    
+
     // check for space before zh
     format = format.replace(/\s?zh/, '')
 
