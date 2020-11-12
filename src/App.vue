@@ -5,7 +5,7 @@
       format="0,0.00"
       useEase="Quit.easeInOut"
       :stagger="true"
-      :digit="digit"
+      :digit="bitcoin.bpi.USD.rate_float"
       :gutter="8"
       :duration="1000"
     />
@@ -26,12 +26,18 @@
 
 <script lang="ts">
 import { defineComponent, ref, onMounted, onBeforeUnmount } from 'vue'
+import { useAxios } from './utils/useAxios'
+
+const BITCOIN_URL = 'https://api.coindesk.com/v1/bpi/currentprice.json'
 
 export default defineComponent({
   name: 'App',
   setup() {
     const digit = ref(9527)
     const datetime = ref(Math.floor(new Date().getTime()))
+    const { refetch, data } = useAxios(BITCOIN_URL)
+    const bitcoin = ref(data)
+
     let digitTimer: number
     let dateTimeTimer: number
 
@@ -46,8 +52,8 @@ export default defineComponent({
 
     onMounted(() => {
       digitTimer = setInterval(() => {
-        randomDigit()
-      }, 3333)
+        refetch()
+      }, 20000)
       // getNowTime()
       dateTimeTimer = setInterval(() => {
         getNowTime()
@@ -61,6 +67,7 @@ export default defineComponent({
 
     return {
       digit,
+      bitcoin,
       datetime,
       randomDigit
     }

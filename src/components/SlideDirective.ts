@@ -1,6 +1,7 @@
 import type { App, ObjectDirective, DirectiveBinding } from 'vue'
 
 // const CENTER_DIGIT = -5
+let timer = 0
 
 interface VSlideProps {
   value: string // the digit value
@@ -22,6 +23,8 @@ export const directive: ObjectDirective = {
     // const newDigit = Math.abs(Math.abs(Number(value) - Number(oldValue)) + CENTER_DIGIT)
     
     if (oldValue !== null) {
+      if (timer) clearTimeout(timer)
+
       el.classList.remove(`is-digit`)
       el.classList.remove(`slide-offset-5`)
       el.style.transition = ''
@@ -35,7 +38,7 @@ export const directive: ObjectDirective = {
     // const newDigit = Math.abs(Math.abs(Number(value) - Number(oldValue)) + CENTER_DIGIT)
 
     if (oldValue !== null) {
-      setTimeout(() => {
+      timer = setTimeout(() => {
         el.classList.add(`is-digit`)
         el.classList.add(`slide-offset-5`)
         // el.classList.remove(`slide-offset-${newDigit}`)
