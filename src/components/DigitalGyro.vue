@@ -30,7 +30,7 @@ import {
 } from 'vue'
 import numeral from 'numeral'
 
-import Digit from './Digit.vue'
+import Digit from './DigitWheel.vue'
 import { circleLinkedDigit } from '../utils/index'
 
 type IAnimationType = PropType<'default' | 'slide' | 'countup'>
@@ -187,6 +187,7 @@ export default defineComponent({
   // @include digit-styling();
   display: inline-block;
   height: 1em;
+  // transform: perspective(1000px) rotateY(-45deg);
   &__item {
     display: inline-block;
     height: 1em;

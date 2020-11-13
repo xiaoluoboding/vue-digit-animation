@@ -5,6 +5,15 @@
       format="0,0.00"
       useEase="Quit.easeInOut"
       :stagger="true"
+      :digit="digit"
+      :gutter="8"
+      :duration="1000"
+    />
+    <DigitalGyro
+      animation="slide"
+      format="0,0.00"
+      useEase="Quit.easeInOut"
+      :stagger="true"
       :digit="bitcoin.bpi.USD.rate_float"
       :gutter="8"
       :duration="1000"
@@ -51,6 +60,9 @@ export default defineComponent({
     }
 
     onMounted(() => {
+      digitTimer = setInterval(() => {
+        randomDigit()
+      }, 3333)
       digitTimer = setInterval(() => {
         refetch()
       }, 20000)
