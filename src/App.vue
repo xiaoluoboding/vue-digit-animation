@@ -1,27 +1,36 @@
 <template>
   <div class="main">
-    <DigitalGyro
+    <!-- <DigitalGyro
       animation="slide"
       format="0,0.00"
-      useEase="Quit.easeInOut"
+      use-ease="Quit.easeInOut"
       :stagger="true"
       :digit="digit"
       :gutter="8"
       :duration="1000"
-    />
-    <DigitalGyro
-      animation="slide"
-      format="0,0.00"
-      useEase="Quit.easeInOut"
-      :stagger="true"
-      :digit="bitcoin.bpi.USD.rate_float"
-      :gutter="8"
+    /> -->
+    <DigitWheel
+      size="10em"
+      use-ease="Quit.easeInOut"
+      :value="digit"
+      :index="0"
       :duration="1000"
     />
     <DigitalGyro
       animation="slide"
+      format="0,0.00"
+      size="120px"
+      use-ease="Quit.easeInOut"
+      :stagger="true"
+      :digit="bitcoin.bpi.USD.rate_float"
+      :gutter="8"
+      :duration="666"
+    />
+    <DigitalGyro
+      animation="wheel"
       format="HHmmss"
-      useEase="Linear"
+      size="6xl"
+      use-ease="Linear"
       :stagger="false"
       :digit="datetime"
       :gutter="8"
@@ -52,7 +61,8 @@ export default defineComponent({
 
     const randomDigit = () => {
       // digit.value = Math.floor(Math.random() * Math.floor(1000000))
-      digit.value = parseFloat(Math.floor(Math.random() * Math.floor(100000)) + Math.random().toFixed(4))
+      // digit.value = parseFloat(Math.floor(Math.random() * Math.floor(100000)) + Math.random().toFixed(4))
+      digit.value = Math.floor(Math.random() * Math.floor(9))
     }
 
     const getNowTime = () => {
@@ -62,7 +72,7 @@ export default defineComponent({
     onMounted(() => {
       digitTimer = setInterval(() => {
         randomDigit()
-      }, 3333)
+      }, 2000)
       digitTimer = setInterval(() => {
         refetch()
       }, 20000)
@@ -94,7 +104,7 @@ body {
 }
 
 body {
-  background: radial-gradient(ellipse at center, #0a2e38 0%, #000000 70%);
+  background: radial-gradient(ellipse at center, #0a2e38 0%, #000000 100%);
   background-size: 100%;
   font-size: 16px;
 }
@@ -114,11 +124,9 @@ body {
 }
 
 .digital-gyro {
-  font-size: 6em;
   // background-image: linear-gradient(90deg, #ff3278, #0ab9e6);
   color: #daf6ff;
   text-shadow: 0 0 12px #0ab9e6, 0 0 12px rgba(10, 175, 230, 0);
-  padding: 20px;
 }
 
 .operation {

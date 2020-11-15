@@ -40,7 +40,28 @@ const easingMap = {
   'Ease': 'ease'
 }
 
+const fontSizePreset: any = {
+  'xs': '0.75rem',
+  'sm': '0.875rem',
+  'base': '1rem',
+  'lg': '1.125rem',
+  'xl': '1.25rem',
+  '2xl': '1.5rem',
+  '3xl': '1.875rem',
+  '4xl': '2.25rem',
+  '5xl': '3rem',
+  '6xl': '4rem'
+}
+
 const circleLinkedDigit = new CircleLinkedList()
+
+const UUIDGenerator = () =>
+  (String(1e7) + -1e11).replace(/[018]/g, (c: string) =>
+    (
+      Number(c) ^
+      (crypto.getRandomValues(new Uint8Array(1))[0] & (15 >> (Number(c) / 4)))
+    ).toString(16)
+  )
 
 circleLinkedDigit
   .insert('0', 'head')
@@ -55,4 +76,4 @@ circleLinkedDigit
   .insert('1', '2')
   .insert('0', '1')
 
-export { easingMap, circleLinkedDigit }
+export { easingMap, fontSizePreset, UUIDGenerator, circleLinkedDigit }

@@ -1,5 +1,6 @@
 import { App } from 'vue'
 import DigitalGyro from './DigitalGyro.vue'
+import DigitWheel from './DigitWheel.vue'
 import SlideDirective from './SlideDirective'
 
 export interface DigitProps {
@@ -14,5 +15,6 @@ export interface DigitProps {
 
 export default (app: App): void => {
   app.component(DigitalGyro.name, DigitalGyro)
+  app.component(DigitWheel.name, DigitWheel)
   app.use(SlideDirective, 'slide')
 }
