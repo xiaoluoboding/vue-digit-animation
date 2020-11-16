@@ -3,7 +3,8 @@
     <div
       v-if="isDigit(value)"
       class="digit-wheel"
-      :id="wheelId"
+      ref="digitWheel"
+      :id="uuid"
       :style="digitWheelStyle"
       :data-digit="value"
     >
@@ -12,22 +13,17 @@
         v-for="item in digitWheel"
         :key="item.value"
         :data-digit="item.value"
-        :class="`digit-${item.value}`"
         :style="item.style"
       >
         {{ item.value }}
       </div>
     </div>
-    <div
-      v-else
-      class="digit"
-      :class="ensureDigitClass(value)"
-    >{{ value }}</div>
+    <div v-else class="digit" :class="ensureDigitClass(value)">{{ value }}</div>
   </div>
 </template>
 
 <script lang="ts">
-import { ref, computed, defineComponent, PropType, onMounted } from 'vue'
+import { defineComponent, PropType } from 'vue'
 
 import { easingMap, fontSizePreset, UUIDGenerator } from '../utils/index'
 
@@ -66,106 +62,117 @@ export default defineComponent({
     useEase: {
       type: String as IEaseType,
       default: 'Ease'
+    },
+    isGyro: {
+      type: Boolean,
+      default: false
     }
   },
-  setup(props, context) {
-    const uuid = UUIDGenerator()
-    const wheelId = ref(uuid)
-    const digitHeight = ref(0)
+  data: vm => ({
+    uuid: UUIDGenerator(),
+    digitHeight: 0,
+    showRange: [vm.value]
+  }),
+  computed: {
+    digitWheel(): object {
+      const digitValue = Number(this.value)
 
-    const isNumber = (val: number): boolean => {
-      return typeof val === 'number' && val === val
-    }
+      this.getDigitHeight()
 
-    const isDigit = (val: string): boolean => {
-      return isNumber(parseInt(val, 10))
-    }
-
-    const getTanFromDegrees = (degrees: number): number => {
-      return Math.tan(degrees * Math.PI / 180)
-    }
-
-    const digitWheel = computed((): object[] => {
       return new Array(10).fill(0).map((item, index) => {
-        const inRadius = (digitHeight.value / 2) / (getTanFromDegrees(DIGIT_DEGREE / 2))
+        const inRadius = (this.digitHeight / 2) / (this.getTanFromDegrees(DIGIT_DEGREE / 2))
+        // console.log(this.digitHeight, inRadius)
+        const isBackDigit = (digitValue < 5 ? digitValue + 5 : digitValue - 5) === index
+        const isHide = !this.showRange.includes(index)
+
         return {
           value: index,
           style: {
             transform: `rotateX(${ 0 - index * DIGIT_DEGREE }deg) translateZ(${inRadius}px)`,
+            visibility: (isBackDigit || isHide) ? 'hidden' : 'visible'
           }
         }
       })
-    })
-
-    const digitWheelStyle = computed((): object => {
-      const transDuration = `${props.duration + (props.stagger ? 200 : 0) * props.index}ms`
-      const transEaseFunction = easingMap[props.useEase] || 'ease'
+    },
+    digitWheelStyle(): object {
+      const transDuration = `${this.duration + (this.stagger ? 200 : 0) * this.index}ms`
+      const transEaseFunction = easingMap[this.useEase] || 'ease'
 
       return {
-        transform: `rotateX(${Number(props.value) * DIGIT_DEGREE - 360}deg)`,
+        transform: `rotateX(${Number(this.value) * DIGIT_DEGREE - 360}deg)`,
         transition: `${transDuration} ${transEaseFunction}`
       }
-    })
+    },
+    textStyle(): object {
+      const sizePreset = Object.prototype.hasOwnProperty.call(fontSizePreset, this.size)
+        ? fontSizePreset[this.size]
+        : this.size
 
-    const textStyle = computed((): object => {
-      const sizePreset = Object.prototype.hasOwnProperty.call(fontSizePreset, props.size)
-        ? fontSizePreset[props.size]
-        : props.size
-
-      return {
-        fontSize: sizePreset
-      }
-    })
-
-    const ensureDigitClass = (val: string): string => {
+      return this.isGyro ? {} : { fontSize: sizePreset }
+    }
+  },
+  watch: {
+    value(oldVal, newVal) {
+      const digits = new Array(10).fill(0).map((item, index) => index)
+      const minVal = oldVal < newVal ? oldVal : newVal
+      const maxVal = oldVal < newVal ? newVal : oldVal
+      this.showRange = digits.slice(minVal, maxVal + 1)
+    }
+  },
+  mounted() {
+    const dwEl = document.getElementById(this.uuid)
+    if (dwEl) {
+      const compStyles = window.getComputedStyle(dwEl)
+      const digitFontSize = compStyles.getPropertyValue('font-size')
+      this.digitHeight = Number(digitFontSize.replace('px', ''))
+    }
+    this.showRange.push(Number(this.value))
+  },
+  methods: {
+    isNumber(val: number) {
+      return typeof val === 'number' && val === val
+    },
+    isDigit(val: string) {
+      return this.isNumber(parseInt(val, 10))
+    },
+    getTanFromDegrees(degrees: number) {
+      return Math.tan((degrees * Math.PI) / 180)
+    },
+    ensureDigitClass(val: string) {
       const isLetter = /[a-zA-Z]/
       const isChinese = /[\u4E00-\u9FA5]/
       const isDigit = /\d/
+      const isPercentage = /%/
 
       if (isLetter.test(val)) return 'is-letter'
       if (isChinese.test(val)) return 'is-chinese'
+      if (isPercentage.test(val)) return 'is-percentage'
       if (isDigit.test(val)) return 'is-digit'
       return 'is-symbol'
-    }
-
-    onMounted(() => {
-      const dwEl = document.getElementById(wheelId.value)
+    },
+    getDigitHeight(): void {
+      const dwEl = document.getElementById(this.uuid)
       if (dwEl) {
         const compStyles = window.getComputedStyle(dwEl)
         const digitFontSize = compStyles.getPropertyValue('font-size')
-        digitHeight.value = Number(digitFontSize.replace('px', ''))
+        this.digitHeight = Number(digitFontSize.replace('px', ''))
       }
-    })
-
-    return {
-      wheelId,
-      isDigit,
-      digitWheel,
-      digitWheelStyle,
-      textStyle,
-      ensureDigitClass
     }
   }
 })
 </script>
 
 <style lang="scss">
-$digit-deg: 36deg;
-$digit-height: 10em;
+// $digit-deg: 36deg;
+// $digit-height: 10em;
 
-@function central-angle($n) {
-  @return 360deg / $n;
-}
+// @function central-angle($n) {
+//   @return 360deg / $n;
+// }
 
-@function inradius($n, $l) {
-  @return ($l / 2) / tan(central-angle($n));
-}
-
-@for $i from 0 through 10 {
-  .slide-offset-#{10 - $i} {
-    --slide-offset: #{$i - 10}em;
-  }
-}
+// @function inradius($n, $l) {
+//   @return ($l / 2) / tan(central-angle($n));
+// }
 
 // @for $i from 0 through 10 {
 //   $translateZ: inradius(10, $digit-height);
@@ -182,7 +189,6 @@ $digit-height: 10em;
     transform-style: preserve-3d;
     height: 1em;
     width: 1ch;
-    background-color: #333;
   }
 
   .digit {
@@ -193,18 +199,7 @@ $digit-height: 10em;
     position: absolute;
     top: 0;
     left: 0;
-    height: 1em;
-    background-color: #333;
-    // &:after {
-    //   content: ' ';
-    //   position: absolute;
-    //   top: 0;
-    //   left: 0;
-    //   height: 1em;
-    //   width: 100%;
-    //   background: #333;
-    //   z-index: -1;
-    // }
+    width: 1ch;
   }
 
   .digit.is-symbol {
@@ -212,8 +207,8 @@ $digit-height: 10em;
   }
 
   .digit.is-letter,
-  .digit.is-chinese {
-    height: 1em;
+  .digit.is-chinese,
+  .digit.is-percentage {
     width: 1em;
   }
 }

@@ -18,7 +18,7 @@ type IAnimationType = PropType<'default' | 'slide' | 'countup'>
 type IEaseType = PropType<'Linear' | 'Ease'>
 
 export default defineComponent({
-  name: 'Digit',
+  name: 'DigitRuler',
   props: {
     value: {
       type: String,

@@ -1,24 +1,25 @@
 <template>
   <div class="main">
-    <!-- <DigitalGyro
-      animation="slide"
-      format="0,0.00"
-      use-ease="Quit.easeInOut"
-      :stagger="true"
-      :digit="digit"
-      :gutter="8"
-      :duration="1000"
-    /> -->
     <DigitWheel
-      size="10em"
+      size="10vw"
       use-ease="Quit.easeInOut"
       :value="digit"
       :index="0"
       :duration="1000"
     />
     <DigitalGyro
-      animation="slide"
-      format="0,0.00"
+      size="6em"
+      animation="wheel"
+      format="0,0"
+      use-ease="Quit.easeInOut"
+      :stagger="false"
+      :digit="digits"
+      :gutter="16"
+      :duration="1000"
+    />
+    <DigitalGyro
+      animation="wheel"
+      format="$0,0.00"
       size="120px"
       use-ease="Quit.easeInOut"
       :stagger="true"
@@ -36,9 +37,9 @@
       :gutter="8"
       :duration="100"
     />
-    <div class="operation">
+    <!-- <div class="operation">
       <button @click="randomDigit">Random Number</button>
-    </div>
+    </div> -->
   </div>
 </template>
 
@@ -51,18 +52,24 @@ const BITCOIN_URL = 'https://api.coindesk.com/v1/bpi/currentprice.json'
 export default defineComponent({
   name: 'App',
   setup() {
-    const digit = ref(9527)
+    const digit = ref(0)
+    const digits = ref(9527)
     const datetime = ref(Math.floor(new Date().getTime()))
     const { refetch, data } = useAxios(BITCOIN_URL)
     const bitcoin = ref(data)
 
     let digitTimer: number
+    let digitsTimer: number
+    let bitcoinTimer: number
     let dateTimeTimer: number
 
     const randomDigit = () => {
-      // digit.value = Math.floor(Math.random() * Math.floor(1000000))
-      // digit.value = parseFloat(Math.floor(Math.random() * Math.floor(100000)) + Math.random().toFixed(4))
       digit.value = Math.floor(Math.random() * Math.floor(9))
+    }
+
+    const randomDigits = () => {
+      digits.value = Math.floor(Math.random() * Math.floor(1000000))
+      // digits.value = parseFloat(Math.floor(Math.random() * Math.floor(100000)) + Math.random().toFixed(4))
     }
 
     const getNowTime = () => {
@@ -72,11 +79,13 @@ export default defineComponent({
     onMounted(() => {
       digitTimer = setInterval(() => {
         randomDigit()
-      }, 2000)
-      digitTimer = setInterval(() => {
+      }, 3333)
+      digitsTimer = setInterval(() => {
+        randomDigits()
+      }, 5000)
+      bitcoinTimer = setInterval(() => {
         refetch()
       }, 20000)
-      // getNowTime()
       dateTimeTimer = setInterval(() => {
         getNowTime()
       }, 1000)
@@ -84,11 +93,14 @@ export default defineComponent({
 
     onBeforeUnmount(() => {
       clearInterval(digitTimer)
+      clearInterval(digitsTimer)
+      clearInterval(bitcoinTimer)
       clearInterval(dateTimeTimer)
     })
 
     return {
       digit,
+      digits,
       bitcoin,
       datetime,
       randomDigit
@@ -107,6 +119,8 @@ body {
   background: radial-gradient(ellipse at center, #0a2e38 0%, #000000 100%);
   background-size: 100%;
   font-size: 16px;
+  color: #daf6ff;
+  text-shadow: 0 0 8px #0ab9e6, 0 0 8px rgba(10, 175, 230, 0);
 }
 
 #app {
@@ -121,12 +135,6 @@ body {
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
-}
-
-.digital-gyro {
-  // background-image: linear-gradient(90deg, #ff3278, #0ab9e6);
-  color: #daf6ff;
-  text-shadow: 0 0 12px #0ab9e6, 0 0 12px rgba(10, 175, 230, 0);
 }
 
 .operation {

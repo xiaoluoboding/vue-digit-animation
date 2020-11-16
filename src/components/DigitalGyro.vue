@@ -1,18 +1,17 @@
 <template>
-  <div class="digital-gyro">
+  <div class="digital-gyro" :style="textStyle">
     <div
       v-for="(digit, index) in digits"
-      class="digital-gyro__item"
-      :style="gyroItemStyle"
+      class="digital-gyro__col"
+      :style="gyroStyle"
       :key="index"
     >
-      <Digit
+      <DigitWheel
+        is-gyro
         :value="digit"
         :index="index"
-        :duration="duration"
-        :stagger="stagger"
-        :use-ease="useEase"
         :size="size"
+        v-bind="$attrs"
       />
     </div>
   </div>
@@ -20,7 +19,6 @@
 
 <script lang="ts">
 import {
-  ref,
   computed,
   onMounted,
   onBeforeUpdate,
@@ -30,14 +28,13 @@ import {
 } from 'vue'
 import numeral from 'numeral'
 
-import Digit from './DigitWheel.vue'
-import { fontSizePreset, circleLinkedDigit } from '../utils/index'
+import { fontSizePreset } from '../utils/index'
+import DigitWheel from './DigitWheel.vue'
 
 type IAnimationType = PropType<'default' | 'slide' | 'countup'>
 type IEaseType = PropType<'Linear' | 'Ease'>
 
 export interface DigitProps {
-  el: HTMLElement // the el which component mounted
   digit: number // the digit value
   size: string // the digit preset font-size or custom font-size
   animation: string // animation type
@@ -52,66 +49,45 @@ export interface DigitProps {
 export default defineComponent({
   name: 'DigitalGyro',
   components: {
-    Digit
+    DigitWheel
   },
   props: {
-    el: {
-      type: [String, HTMLElement],
-      default: null
-    },
     digit: {
       type: Number,
       default: 0
-    },
-    size: {
-      type: String,
-      default: 'base'
-    },
-    animation: {
-      type: String as IAnimationType,
-      default: 'slide'
-    },
-    duration: {
-      type: Number,
-      default: 1000
-    },
-    stagger: {
-      type: Boolean,
-      default: false
     },
     gutter: {
       type: Number,
       default: 0
     },
-    useEase: {
-      type: String as IEaseType,
-      default: 'Ease'
-    },
     format: {
       type: String,
       default: '0,0'
+    },
+    size: {
+      type: String,
+      default: 'base'
     }
   },
   setup(props) {
-    // const digitCollection = Array.from('09876543210')
-    const digitCollection = circleLinkedDigit.getCircleMiddle('5')
-    const verticalDigit = ref(digitCollection.join(' '))
-
-    const isNumber = (val: number): boolean => {
-      return typeof val === 'number' && val === val
-    }
-
-    const isDigit = (val: string): boolean => {
-      return isNumber(parseInt(val, 10))
-    }
-
     const digits = computed((): string[] => {
-      const digits = numeral(props.digit).format(props.format)
+      let digits = numeral(props.digit).format(props.format)
 
-      return Array.from(digits)
+      const isEmpty = (val: any) => val == null || !(Object.keys(val) || val).length
+
+      digits = Array.from(digits).filter((item: any) => !isEmpty(item))
+
+      return digits
     })
 
     const gyroStyle = computed((): object => {
+      return {
+        // 'grid-template-columns': `repeat(${digits.value.length}, minmax(0, 1fr))`,
+        padding: `0 ${props.gutter}px`
+      }
+    })
+
+    const textStyle = computed((): object => {
       const sizePreset = Object.prototype.hasOwnProperty.call(fontSizePreset, props.size)
         ? fontSizePreset[props.size]
         : props.size
@@ -120,14 +96,8 @@ export default defineComponent({
       }
     })
 
-    const gyroItemStyle = computed((): object => {
-      return {
-        padding: `0 ${props.gutter}px`
-      }
-    })
-
     onMounted(() => {
-      console.log(props)
+      // console.log(props)
     })
 
     onBeforeUpdate(() => {
@@ -140,10 +110,8 @@ export default defineComponent({
 
     return {
       digits,
-      isDigit,
-      verticalDigit,
       gyroStyle,
-      gyroItemStyle
+      textStyle
     }
   }
 })
@@ -151,9 +119,15 @@ export default defineComponent({
 
 <style lang="scss" scoped>
 .digital-gyro {
-  &__item {
+  height: 1em;
+  &__col {
     display: inline-block;
-    overflow: hidden;
+    &:first-child {
+      padding-left: 0 !important;
+    }
+    &:last-child {
+      padding-right: 0 !important;
+    }
   }
 }
 </style>
