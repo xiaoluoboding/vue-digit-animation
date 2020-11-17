@@ -1,6 +1,6 @@
-import '../utils/formatZhNumber'
-import '../utils/formatColonTime'
-import '../utils/formatLocalDate'
+import './formatZhNumber'
+import './formatColonTime'
+import './formatLocalDate'
 import CircleLinkedList from './circleLinkedList'
 
 const easingMap = {

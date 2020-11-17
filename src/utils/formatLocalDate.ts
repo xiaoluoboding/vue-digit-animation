@@ -5,11 +5,11 @@ numeral.register('format', 'localDate', {
     format: /YYYY(\/)MM(\/)DD/,
     unformat: /YYYY(\/)MM(\/)DD/
   },
-  format: function(value: number, format?: string) {
+  format: function (value: number, format?: string) {
     // console.log(format)
     return new Date(value).toLocaleDateString()
   },
-  unformat: function(string: string) {
+  unformat: function (string: string) {
     const timeArray = string.split('/')
     let seconds = 0
 

@@ -3,7 +3,7 @@ class Node {
   public element: string
   public next: any
 
-  constructor(element: string) {
+  constructor (element: string) {
     this.element = element
     this.next = {}
   }
@@ -13,30 +13,32 @@ class Node {
 class LinkedList {
   public head: Node
 
-  constructor() {
+  constructor () {
     this.head = new Node('head')
     this.head.next = this.head
   }
 
-  remove(item: string) {
+  remove (item: string) {
     const prevNode = this.findPrevious(item)
     if (!(prevNode.next == null)) {
       prevNode.next = prevNode.next.next
     }
   }
 
-  findPrevious(item: string) {
+  findPrevious (item: string) {
     let currNode = this.head
 
-    while (!(currNode.next == null) &&
-      !(currNode.next.element == 'head') &&
-      (currNode.next.element != item)) {
+    while (
+      !(currNode.next == null) &&
+      !(currNode.next.element === 'head') &&
+      currNode.next.element !== item
+    ) {
       currNode = currNode.next
     }
     return currNode
   }
 
-  getCircleMiddle(item: string) {
+  getCircleMiddle (item: string) {
     let currNode = this.find(item)
     // console.log(currNode)
     const prevArr: string[] = []
@@ -65,25 +67,25 @@ class LinkedList {
     return prevArr.concat(nextArr)
   }
 
-  display() {
+  display () {
     let currNode = this.head
-    while (!(currNode.next == null) && !(currNode.next.element == 'head')) {
+    while (!(currNode.next == null) && !(currNode.next.element === 'head')) {
       console.log(currNode.next.element)
       // console.log(currNode.next)
       currNode = currNode.next
     }
   }
 
-  find(element: string) {
+  find (element: string) {
     let currNode = this.head
-    while (currNode.element != element) {
+    while (currNode.element !== element) {
       currNode = currNode.next
     }
     // console.log(currNode)
     return currNode
   }
 
-  insert(newElement: string, item: string) {
+  insert (newElement: string, item: string) {
     const newNode = new Node(newElement)
     const current = this.find(item)
     if (current) {

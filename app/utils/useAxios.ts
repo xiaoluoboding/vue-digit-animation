@@ -9,27 +9,32 @@ import axios, {
 import _ from 'lodash'
 
 interface AxiosState {
-  response: any
-  data: any
-  finished: boolean
-  canceled: boolean
-  error: any
+  response: AxiosResponse | null;
+  data: object;
+  finished: boolean;
+  canceled: boolean;
+  error: AxiosError | null;
 }
 
 interface AxiosOptions {
-  debounce?: number
-  throttle?: number
+  debounce?: number;
+  throttle?: number;
 }
 
 const state = reactive<AxiosState>({
   response: null,
-  data: undefined,
+  data: {},
   finished: false,
   canceled: false,
   error: null
 })
 
-const request = (url: string, config?: AxiosRequestConfig, options?: AxiosOptions) => {
+const request = (
+  url: string,
+  config?: AxiosRequestConfig,
+  options?: AxiosOptions
+) => {
+  console.log(options)
   axios(url, config)
     .then((r: AxiosResponse) => {
       state.response = r
@@ -61,9 +66,13 @@ const useAxios = (
 
   let refetch
   if (options && options.debounce && options.debounce > 0) {
-    refetch = _.debounce(() => request(url, axiosConfig, options), options.debounce)
+    refetch = _.debounce(() => {
+      return request(url, axiosConfig, options)
+    }, options.debounce)
   } else if (options && options.throttle && options.throttle > 0) {
-    refetch = _.throttle(() => request(url, axiosConfig, options), options.throttle)
+    refetch = _.throttle(() => {
+      return request(url, axiosConfig, options)
+    }, options.throttle)
   } else {
     refetch = () => request(url, axiosConfig, options)
   }
@@ -77,6 +86,4 @@ const useAxios = (
   }
 }
 
-export {
-  useAxios
-}
+export { useAxios }

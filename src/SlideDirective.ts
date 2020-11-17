@@ -1,4 +1,4 @@
-import type { App, ObjectDirective, DirectiveBinding } from 'vue'
+import { App, ObjectDirective, DirectiveBinding } from 'vue'
 
 // const CENTER_DIGIT = -5
 let timer = 0
@@ -19,9 +19,9 @@ export const directive: ObjectDirective = {
     }
   },
   beforeUpdate: (el: HTMLElement, binding: DirectiveBinding<string>) => {
-    const { oldValue, value } = binding
+    const { oldValue } = binding
     // const newDigit = Math.abs(Math.abs(Number(value) - Number(oldValue)) + CENTER_DIGIT)
-    
+
     if (oldValue !== null) {
       if (timer) clearTimeout(timer)
 
@@ -34,7 +34,7 @@ export const directive: ObjectDirective = {
   updated: (el: HTMLElement, binding: DirectiveBinding<VSlideProps>) => {
     // console.log(binding.value.value)
     // console.log(binding.value.transition)
-    const { oldValue, value, instance: vm } = binding
+    const { oldValue, value } = binding
     // const newDigit = Math.abs(Math.abs(Number(value) - Number(oldValue)) + CENTER_DIGIT)
 
     if (oldValue !== null) {
@@ -52,16 +52,12 @@ export const directive: ObjectDirective = {
   }
 }
 
-const isVue3 = (app: App): app is App =>
-  app.version[0] === "3"
+const isVue3 = (app: App): app is App => app.version[0] === '3'
 
-const Plugin = (
-  app: App,
-  directives: string | string[] = 'variantwind'
-) => {
+const Plugin = (app: App, directives: string | string[] = 'variantwind') => {
   if (isVue3(app)) {
     if (Array.isArray(directives)) {
-      directives.map((name) => {
+      directives.map(name => {
         app.directive(name, directive)
       })
     } else {

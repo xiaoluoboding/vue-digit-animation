@@ -5,11 +5,11 @@ numeral.register('format', 'colonTime', {
     format: /(HHmmss)/,
     unformat: /(HHmmss)/
   },
-  format: function(value: number, format?: string) {
+  format: function (value: number, format?: string) {
     // console.log(format)
     return new Date(value).toTimeString().slice(0, 8)
   },
-  unformat: function(string: string) {
+  unformat: function (string: string) {
     const timeArray = string.split(':')
     let seconds = 0
 

@@ -35,13 +35,13 @@ type IAnimationType = PropType<'default' | 'slide' | 'countup'>
 type IEaseType = PropType<'Linear' | 'Ease'>
 
 export interface DigitProps {
-  digit: number // the digit value
-  size: string // the digit preset font-size or custom font-size
-  animation: string // animation type
-  duration: number // animation duration in milliseconds (1000)
-  stagger: boolean // whether animation display with stagger
-  useEase: string // transition easing function
-  format: string // proivde number format use numeral (0,0)
+  digit: number; // the digit value
+  size: string; // the digit preset font-size or custom font-size
+  animation: string; // animation type
+  duration: number; // animation duration in milliseconds (1000)
+  stagger: boolean; // whether animation display with stagger
+  useEase: string; // transition easing function
+  format: string; // proivde number format use numeral (0,0)
 }
 
 // const el = ref<HTMLElement | null>(null)
@@ -69,12 +69,14 @@ export default defineComponent({
       default: 'base'
     }
   },
-  setup(props) {
+  setup (props) {
     const digits = computed((): string[] => {
       let digits = numeral(props.digit).format(props.format)
 
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const isEmpty = (val: any) => val == null || !(Object.keys(val) || val).length
 
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       digits = Array.from(digits).filter((item: any) => !isEmpty(item))
 
       return digits
@@ -117,17 +119,20 @@ export default defineComponent({
 })
 </script>
 
-<style lang="scss" scoped>
+<style scoped>
 .digital-gyro {
   height: 1em;
-  &__col {
-    display: inline-block;
-    &:first-child {
-      padding-left: 0 !important;
-    }
-    &:last-child {
-      padding-right: 0 !important;
-    }
-  }
+}
+
+.digital-gyro__col {
+  display: inline-block;
+}
+
+.digital-gyro__col:first-child {
+  padding-left: 0 !important;
+}
+
+.digital-gyro__col:last-child {
+  padding-right: 0 !important;
 }
 </style>

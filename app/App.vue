@@ -51,7 +51,7 @@ const BITCOIN_URL = 'https://api.coindesk.com/v1/bpi/currentprice.json'
 
 export default defineComponent({
   name: 'App',
-  setup() {
+  setup () {
     const digit = ref(0)
     const digits = ref(9527)
     const datetime = ref(Math.floor(new Date().getTime()))

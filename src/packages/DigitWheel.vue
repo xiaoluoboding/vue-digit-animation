@@ -74,7 +74,7 @@ export default defineComponent({
     showRange: [vm.value]
   }),
   computed: {
-    digitWheel(): object {
+    digitWheel (): object {
       const digitValue = Number(this.value)
 
       this.getDigitHeight()
@@ -88,13 +88,13 @@ export default defineComponent({
         return {
           value: index,
           style: {
-            transform: `rotateX(${ 0 - index * DIGIT_DEGREE }deg) translateZ(${inRadius}px)`,
+            transform: `rotateX(${0 - index * DIGIT_DEGREE}deg) translateZ(${inRadius}px)`,
             visibility: (isBackDigit || isHide) ? 'hidden' : 'visible'
           }
         }
       })
     },
-    digitWheelStyle(): object {
+    digitWheelStyle (): object {
       const transDuration = `${this.duration + (this.stagger ? 200 : 0) * this.index}ms`
       const transEaseFunction = easingMap[this.useEase] || 'ease'
 
@@ -103,7 +103,7 @@ export default defineComponent({
         transition: `${transDuration} ${transEaseFunction}`
       }
     },
-    textStyle(): object {
+    textStyle (): object {
       const sizePreset = Object.prototype.hasOwnProperty.call(fontSizePreset, this.size)
         ? fontSizePreset[this.size]
         : this.size
@@ -112,14 +112,14 @@ export default defineComponent({
     }
   },
   watch: {
-    value(oldVal, newVal) {
+    value (oldVal, newVal) {
       const digits = new Array(10).fill(0).map((item, index) => index)
       const minVal = oldVal < newVal ? oldVal : newVal
       const maxVal = oldVal < newVal ? newVal : oldVal
       this.showRange = digits.slice(minVal, maxVal + 1)
     }
   },
-  mounted() {
+  mounted () {
     const dwEl = document.getElementById(this.uuid)
     if (dwEl) {
       const compStyles = window.getComputedStyle(dwEl)
@@ -129,16 +129,16 @@ export default defineComponent({
     this.showRange.push(Number(this.value))
   },
   methods: {
-    isNumber(val: number) {
-      return typeof val === 'number' && val === val
+    isNumber (val: number): boolean {
+      return typeof val === 'number' && !isNaN(val)
     },
-    isDigit(val: string) {
+    isDigit (val: string) {
       return this.isNumber(parseInt(val, 10))
     },
-    getTanFromDegrees(degrees: number) {
+    getTanFromDegrees (degrees: number) {
       return Math.tan((degrees * Math.PI) / 180)
     },
-    ensureDigitClass(val: string) {
+    ensureDigitClass (val: string) {
       const isLetter = /[a-zA-Z]/
       const isChinese = /[\u4E00-\u9FA5]/
       const isDigit = /\d/
@@ -150,7 +150,7 @@ export default defineComponent({
       if (isDigit.test(val)) return 'is-digit'
       return 'is-symbol'
     },
-    getDigitHeight(): void {
+    getDigitHeight (): void {
       const dwEl = document.getElementById(this.uuid)
       if (dwEl) {
         const compStyles = window.getComputedStyle(dwEl)
@@ -162,25 +162,7 @@ export default defineComponent({
 })
 </script>
 
-<style lang="scss">
-// $digit-deg: 36deg;
-// $digit-height: 10em;
-
-// @function central-angle($n) {
-//   @return 360deg / $n;
-// }
-
-// @function inradius($n, $l) {
-//   @return ($l / 2) / tan(central-angle($n));
-// }
-
-// @for $i from 0 through 10 {
-//   $translateZ: inradius(10, $digit-height);
-//   .digit-#{$i} {
-//     transform: rotateX(0 - $i - $digit-deg) translateZ($translateZ + "px");
-//   }
-// }
-
+<style lang="scss" scoped>
 .digit-wheel--wrapper {
   display: inline-block;
   overflow: hidden;

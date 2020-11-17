@@ -81,7 +81,7 @@ export default defineComponent({
 })
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 @for $i from 0 through 10 {
   .slide-offset-#{10 - $i} {
     --slide-offset: #{$i - 10}em;
@@ -90,6 +90,6 @@ export default defineComponent({
 
 .digit.is-digit {
   transform: translateY(var(--slide-offset));
-  // transition: all 666ms;
+  /* transition: all 666ms; */
 }
 </style>
