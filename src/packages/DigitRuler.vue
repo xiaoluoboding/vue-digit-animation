@@ -10,7 +10,7 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, PropType } from 'vue'
+import { computed, defineComponent, PropType } from 'vue-demi'
 
 import { easingMap, circleLinkedDigit } from '../utils/index'
 

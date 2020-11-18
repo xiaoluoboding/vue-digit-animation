@@ -5,7 +5,7 @@ numeral.register('format', 'colonTime', {
     format: /(HHmmss)/,
     unformat: /(HHmmss)/
   },
-  format: function (value: number, format?: string) {
+  format: function (value: number) {
     // console.log(format)
     return new Date(value).toTimeString().slice(0, 8)
   },

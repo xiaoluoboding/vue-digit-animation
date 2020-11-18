@@ -45,12 +45,9 @@
     "tags": "vetur/tags.json",
     "attributes": "vetur/attributes.json"
   },
-  "peerDependencies": {
-    "vue": "^3.0.0"
-  },
   "dependencies": {
     "numeral": "^2.0.6",
-    "vue": "^3.0.0-0"
+    "vue-demi": "^0.4.3"
   },
   "devDependencies": {
     "@rollup/plugin-babel": "^5.2.1",
@@ -91,6 +88,7 @@
     "sass": "^1.26.5",
     "sass-loader": "^8.0.2",
     "typescript": "~3.9.3",
+    "vue": "3.0.2",
     "vue-jest": "^5.0.0-0"
   }
 }

@@ -36,16 +36,16 @@ const easingMap = {
   'Back.easeOut': 'cubic-bezier(0.34, 1.56, 0.64, 1)',
   'Back.easeInOut': 'cubic-bezier(0.68, -0.6, 0.32, 1.6)',
 
-  'Linear': 'linear',
-  'Ease': 'ease'
+  Linear: 'linear',
+  Ease: 'ease'
 }
 
 const fontSizePreset: any = {
-  'xs': '0.75rem',
-  'sm': '0.875rem',
-  'base': '1rem',
-  'lg': '1.125rem',
-  'xl': '1.25rem',
+  xs: '0.75rem',
+  sm: '0.875rem',
+  base: '1rem',
+  lg: '1.125rem',
+  xl: '1.25rem',
   '2xl': '1.5rem',
   '3xl': '1.875rem',
   '4xl': '2.25rem',

@@ -1,4 +1,4 @@
-import { App } from 'vue'
+import { App } from 'vue-demi'
 import DigitWheelGroup from './packages/DigitWheelGroup.vue'
 import DigitWheel from './packages/DigitWheel.vue'
 // import SlideDirective from './SlideDirective'

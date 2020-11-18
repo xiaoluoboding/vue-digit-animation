@@ -5,7 +5,7 @@ numeral.register('format', 'localDate', {
     format: /YYYY(\/)MM(\/)DD/,
     unformat: /YYYY(\/)MM(\/)DD/
   },
-  format: function (value: number, format?: string) {
+  format: function (value: number) {
     // console.log(format)
     return new Date(value).toLocaleDateString()
   },

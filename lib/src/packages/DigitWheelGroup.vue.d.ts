@@ -8,7 +8,7 @@ export interface DigitsProps {
     useEase: string;
     format: string;
 }
-declare const _default: import("vue").DefineComponent<{
+declare const _default: import("vue-demi").DefineComponent<{
     digits: {
         type: NumberConstructor;
         default: number;
@@ -27,10 +27,10 @@ declare const _default: import("vue").DefineComponent<{
         default: string;
     };
 }, {
-    groupDigits: import("vue").ComputedRef<string[]>;
-    colStyle: import("vue").ComputedRef<object>;
-    textStyle: import("vue").ComputedRef<object>;
-}, unknown, {}, {}, import("vue").ComponentOptionsMixin, import("vue").ComponentOptionsMixin, Record<string, any>, string, import("vue").VNodeProps & import("vue").AllowedComponentProps & import("vue").ComponentCustomProps, Readonly<{
+    groupDigits: import("vue-demi").ComputedRef<string[]>;
+    colStyle: import("vue-demi").ComputedRef<object>;
+    textStyle: import("vue-demi").ComputedRef<object>;
+}, unknown, {}, {}, import("vue-demi").ComponentOptionsMixin, import("vue-demi").ComponentOptionsMixin, Record<string, any>, string, import("vue-demi").VNodeProps & import("vue-demi").AllowedComponentProps & import("vue-demi").ComponentCustomProps, Readonly<{
     digits: number;
     gutter: number;
     format: string;
