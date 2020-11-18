@@ -134,7 +134,7 @@ function createConfig (format, output, plugins = []) {
   // during a single build.
   hasTSChecked = true
 
-  const external = ['vue']
+  const external = ['vue-demi']
 
   const nodePlugins = [resolve(), commonjs()]
 
