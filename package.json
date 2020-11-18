@@ -1,6 +1,6 @@
 {
   "name": "vue-digit-wheel",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "description": "A digit wheel animation component for Vue 2/3",
   "main": "lib/vue-digit-wheel.cjs.js",
   "unpkg": "lib/vue-digit-wheel.global.js",

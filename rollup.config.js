@@ -13,7 +13,6 @@ import autoprefixer from 'autoprefixer'
 
 import pkg from './package.json'
 
-// const pkg = require('./package.json')
 const name = pkg.name
 
 function getAuthors (pkg) {
@@ -104,7 +103,7 @@ function createConfig (format, output, plugins = []) {
   output.sourcemap = !!process.env.SOURCE_MAP
   output.banner = banner
   output.externalLiveBindings = false
-  output.globals = { vue: 'Vue' }
+  // output.globals = { vue: 'Vue' }
 
   const isProductionBuild = /\.prod\.js$/.test(output.file)
   const isGlobalBuild = format === 'global'
@@ -134,7 +133,7 @@ function createConfig (format, output, plugins = []) {
   // during a single build.
   hasTSChecked = true
 
-  const external = ['vue-demi', 'vue']
+  const external = ['vue-demi']
 
   const nodePlugins = [resolve(), commonjs()]
 

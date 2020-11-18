@@ -1,4 +1,4 @@
-## [0.1.4](https://github.com/xiaoluoboding/vue-digit-wheel/compare/v0.1.0...v0.1.4) (2020-11-18)
+## [0.1.5](https://github.com/xiaoluoboding/vue-digit-wheel/compare/v0.1.0...v0.1.5) (2020-11-18)
 
 
 ### Features

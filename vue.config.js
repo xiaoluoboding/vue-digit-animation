@@ -31,7 +31,7 @@ const setConfigureWebpack = config => {
   if (isLib) {
     config.output = {
       ...config.output,
-      library: 'DigitalGyro',
+      library: 'VueDigitWheel',
       libraryExport: 'default'
     }
   }
