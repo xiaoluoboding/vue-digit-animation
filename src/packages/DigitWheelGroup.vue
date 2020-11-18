@@ -25,7 +25,7 @@ import {
   onUpdated,
   PropType,
   defineComponent
-} from 'vue-demi'
+} from 'vue'
 import numeral from 'numeral'
 
 import { fontSizePreset } from '../utils/index'

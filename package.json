@@ -1,7 +1,7 @@
 {
   "name": "vue-digit-wheel",
-  "version": "0.1.5",
-  "description": "A digit wheel animation component for Vue 2/3",
+  "version": "0.1.6",
+  "description": "A digit wheel animation component for Vue 3",
   "main": "lib/vue-digit-wheel.cjs.js",
   "unpkg": "lib/vue-digit-wheel.global.js",
   "jsdelivr": "lib/vue-digit-wheel.global.js",
@@ -39,7 +39,6 @@
     "javascript",
     "vue",
     "vue-next",
-    "vue2",
     "vue3",
     "digit",
     "wheel",
@@ -52,12 +51,10 @@
     "attributes": "vetur/attributes.json"
   },
   "peerDependencies": {
-    "@vue/composition-api": "^1.0.0-beta.1",
-    "vue": "^2.0.0 || >=3.0.0-rc.0"
+    "vue": "^3.0.0-rc.0"
   },
   "dependencies": {
-    "numeral": "^2.0.6",
-    "vue-demi": "^0.4.3"
+    "numeral": "^2.0.6"
   },
   "devDependencies": {
     "@microsoft/api-extractor": "^7.12.0",

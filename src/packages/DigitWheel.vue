@@ -23,7 +23,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, PropType } from 'vue-demi'
+import { defineComponent, PropType } from 'vue'
 
 import { easingMap, fontSizePreset, UUIDGenerator } from '../utils/index'
 

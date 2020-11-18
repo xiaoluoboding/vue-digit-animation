@@ -1,4 +1,4 @@
-import { App, ObjectDirective, DirectiveBinding } from 'vue-demi'
+import { App, ObjectDirective, DirectiveBinding } from 'vue'
 
 // const CENTER_DIGIT = -5
 let timer = 0
