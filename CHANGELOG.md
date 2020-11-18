@@ -1,9 +1,10 @@
-## [0.1.1](https://github.com/xiaoluoboding/vue-digit-wheel/compare/v0.1.0...v0.1.1) (2020-11-18)
+## [0.1.2](https://github.com/xiaoluoboding/vue-digit-wheel/compare/v0.1.0...v0.1.2) (2020-11-18)
 
 
 ### Features
 
 * add api-extractor ([c0a57bf](https://github.com/xiaoluoboding/vue-digit-wheel/commit/c0a57bfe8461324e51b429ab229a6cc66385bdc0))
+* add peerDependencies ([68dc55f](https://github.com/xiaoluoboding/vue-digit-wheel/commit/68dc55fb1bd6408b0bba29d1832eca6430832f4e))
 
 
 
