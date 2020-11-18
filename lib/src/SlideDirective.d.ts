@@ -1,4 +1,4 @@
-import { App, ObjectDirective } from 'vue';
+import { App, ObjectDirective } from 'vue-demi';
 export declare const directive: ObjectDirective;
 declare const Plugin: (app: App, directives?: string | string[]) => void;
 export default Plugin;
