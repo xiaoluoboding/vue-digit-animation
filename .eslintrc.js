@@ -15,7 +15,8 @@ module.exports = {
     "no-console": process.env.NODE_ENV === "production" ? "warn" : "off",
     "no-debugger": process.env.NODE_ENV === "production" ? "warn" : "off",
     "vue/require-v-for-key": 0,
-    "vue/no-v-for-template-key": 0
+    "vue/no-v-for-template-key": 0,
+    "@typescript-eslint/no-explicit-any": 0
   },
   overrides: [
     {

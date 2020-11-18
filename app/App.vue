@@ -7,17 +7,17 @@
       :index="0"
       :duration="1000"
     />
-    <DigitalGyro
+    <digit-wheel-group
       size="6em"
       animation="wheel"
       format="0,0"
       use-ease="Quit.easeInOut"
-      :stagger="false"
+      :stagger="true"
       :digit="digits"
       :gutter="16"
       :duration="1000"
     />
-    <DigitalGyro
+    <DigitWheelGroup
       animation="wheel"
       format="$0,0.00"
       size="120px"
@@ -27,7 +27,7 @@
       :gutter="8"
       :duration="666"
     />
-    <DigitalGyro
+    <DigitWheelGroup
       animation="wheel"
       format="HHmmss"
       size="6xl"
@@ -45,11 +45,13 @@
 
 <script lang="ts">
 import { defineComponent, ref, onMounted, onBeforeUnmount } from 'vue'
+import DigitWheelGroup from '../src/packages/DigitWheelGroup.vue'
 import { useAxios } from './utils/useAxios'
 
 const BITCOIN_URL = 'https://api.coindesk.com/v1/bpi/currentprice.json'
 
 export default defineComponent({
+  components: { DigitWheelGroup },
   name: 'App',
   setup () {
     const digit = ref(0)

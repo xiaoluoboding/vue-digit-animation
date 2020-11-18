@@ -1,5 +1,5 @@
 <template>
-  <div class="digit-wheel--wrapper" :style="textStyle">
+  <div class="digit-wheel__wrap" :style="textStyle">
     <div
       v-if="isDigit(value)"
       class="digit-wheel"
@@ -63,7 +63,7 @@ export default defineComponent({
       type: String as IEaseType,
       default: 'Ease'
     },
-    isGyro: {
+    isGroup: {
       type: Boolean,
       default: false
     }
@@ -108,7 +108,7 @@ export default defineComponent({
         ? fontSizePreset[this.size]
         : this.size
 
-      return this.isGyro ? {} : { fontSize: sizePreset }
+      return this.isGroup ? {} : { fontSize: sizePreset }
     }
   },
   watch: {
@@ -163,7 +163,7 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-.digit-wheel--wrapper {
+.digit-wheel__wrap {
   display: inline-block;
   overflow: hidden;
 

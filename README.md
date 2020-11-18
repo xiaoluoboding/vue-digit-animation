@@ -1,6 +1,6 @@
-# Digital Gyro
+# Digit Wheel
 
-A digit animation component with scroll / flip / gyro effect.
+A digit wheel animation component for Vue 3.
 
 ## Project setup
 ```

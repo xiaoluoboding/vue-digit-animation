@@ -1,13 +1,13 @@
 <template>
-  <div class="digital-gyro" :style="textStyle">
+  <div class="digit-wheel-group" :style="textStyle">
     <div
       v-for="(digit, index) in digits"
-      class="digital-gyro__col"
+      class="digit-wheel-group__col"
       :style="gyroStyle"
       :key="index"
     >
       <DigitWheel
-        is-gyro
+        is-group
         :value="digit"
         :index="index"
         :size="size"
@@ -31,15 +31,16 @@ import numeral from 'numeral'
 import { fontSizePreset } from '../utils/index'
 import DigitWheel from './DigitWheel.vue'
 
-type IAnimationType = PropType<'default' | 'slide' | 'countup'>
+type IAnimationType = PropType<'default' | 'wheel' | 'countup'>
 type IEaseType = PropType<'Linear' | 'Ease'>
 
 export interface DigitProps {
   digit: number; // the digit value
   size: string; // the digit preset font-size or custom font-size
+  gutter: number; // digit Spacing, default is 8px
   animation: string; // animation type
-  duration: number; // animation duration in milliseconds (1000)
-  stagger: boolean; // whether animation display with stagger
+  duration: number; // Sets the length of time that animation completed, Unit is milliseconds(1000)
+  stagger: boolean; // whether animation display with stagger effect
   useEase: string; // transition easing function
   format: string; // proivde number format use numeral (0,0)
 }
@@ -47,14 +48,15 @@ export interface DigitProps {
 // const el = ref<HTMLElement | null>(null)
 
 export default defineComponent({
-  name: 'DigitalGyro',
+  name: 'DigitWheelGroup',
   components: {
     DigitWheel
   },
   props: {
     digit: {
       type: Number,
-      default: 0
+      default: 0,
+      required: true
     },
     gutter: {
       type: Number,
@@ -73,10 +75,8 @@ export default defineComponent({
     const digits = computed((): string[] => {
       let digits = numeral(props.digit).format(props.format)
 
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const isEmpty = (val: any) => val == null || !(Object.keys(val) || val).length
 
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       digits = Array.from(digits).filter((item: any) => !isEmpty(item))
 
       return digits
@@ -120,19 +120,19 @@ export default defineComponent({
 </script>
 
 <style scoped>
-.digital-gyro {
+.digit-wheel-group {
   height: 1em;
 }
 
-.digital-gyro__col {
+.digit-wheel-group__col {
   display: inline-block;
 }
 
-.digital-gyro__col:first-child {
+.digit-wheel-group__col:first-child {
   padding-left: 0 !important;
 }
 
-.digital-gyro__col:last-child {
+.digit-wheel-group__col:last-child {
   padding-right: 0 !important;
 }
 </style>

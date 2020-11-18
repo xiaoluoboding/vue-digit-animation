@@ -76,8 +76,8 @@ export default {
   input: './src/index.ts',
   output: {
     file: isMinify
-      ? `./lib/digital-gyro.common.min.js`
-      : `./lib/digital-gyro.common.js`,
+      ? `./lib/vue-digit-wheel.common.min.js`
+      : `./lib/vue-digit-wheel.common.js`,
     format: 'cjs',
     sourcemap: false,
     exports: 'named'

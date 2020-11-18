@@ -1,14 +1,14 @@
 import { App } from 'vue'
-import DigitalGyro from './packages/DigitalGyro.vue'
+import DigitWheelGroup from './packages/DigitWheelGroup.vue'
 import DigitWheel from './packages/DigitWheel.vue'
 import SlideDirective from './SlideDirective'
 
 export const install = (app: App): void => {
-  app.component(DigitalGyro.name, DigitalGyro)
+  app.component(DigitWheelGroup.name, DigitWheelGroup)
   app.component(DigitWheel.name, DigitWheel)
   app.use(SlideDirective, 'slide')
 }
 
-export { DigitalGyro, DigitWheel }
+export { DigitWheelGroup, DigitWheel }
 
 export default install
