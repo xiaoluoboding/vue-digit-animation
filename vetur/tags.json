@@ -1,8 +1,8 @@
 {
   "digit-wheel-group": {
-    "description": "A digit animation component for Vue 3.",
+    "description": "A group of <digit-wheel> component for display multiple digits",
     "attributes": [
-      "digit",
+      "digits",
       "size",
       "gutter",
       "animation",
@@ -12,5 +12,16 @@
       "format"
     ],
     "defaults": ["digit", "format"]
+  },
+  "digit-wheel": {
+    "description": "Single <digit-wheel> component for display single digit",
+    "attributes": [
+      "digit",
+      "size",
+      "animation",
+      "duration",
+      "use-ease"
+    ],
+    "defaults": ["digit"]
   }
 }

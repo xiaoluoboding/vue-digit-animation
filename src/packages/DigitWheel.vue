@@ -1,12 +1,12 @@
 <template>
   <div class="digit-wheel__wrap" :style="textStyle">
     <div
-      v-if="isDigit(value)"
+      v-if="isDigit(digit)"
       class="digit-wheel"
       ref="digitWheel"
       :id="uuid"
       :style="digitWheelStyle"
-      :data-digit="value"
+      :data-digit="digit"
     >
       <div
         class="digit is-digit"
@@ -18,7 +18,7 @@
         {{ item.value }}
       </div>
     </div>
-    <div v-else class="digit" :class="ensureDigitClass(value)">{{ value }}</div>
+    <div v-else class="digit" :class="ensureDigitClass(digit)">{{ digit }}</div>
   </div>
 </template>
 
@@ -30,12 +30,20 @@ import { easingMap, fontSizePreset, UUIDGenerator } from '../utils/index'
 type IAnimationType = PropType<'default' | 'wheel' | 'countup'>
 type IEaseType = PropType<'Linear' | 'Ease'>
 
+export interface DigitProps {
+  digit: number; // the digit value
+  size: string; // the digit preset font-size or custom font-size
+  animation: string; // animation type
+  duration: number; // Sets the length of time that animation completed, Unit is milliseconds(1000)
+  useEase: string; // transition easing function
+}
+
 const DIGIT_DEGREE = 360 / 10
 
 export default defineComponent({
   name: 'DigitWheel',
   props: {
-    value: {
+    digit: {
       type: [String, Number],
       default: ''
     },
@@ -71,11 +79,11 @@ export default defineComponent({
   data: vm => ({
     uuid: UUIDGenerator(),
     digitHeight: 0,
-    showRange: [vm.value]
+    showRange: [vm.digit]
   }),
   computed: {
     digitWheel (): object {
-      const digitValue = Number(this.value)
+      const digitValue = Number(this.digit)
 
       this.getDigitHeight()
 
@@ -99,7 +107,7 @@ export default defineComponent({
       const transEaseFunction = easingMap[this.useEase] || 'ease'
 
       return {
-        transform: `rotateX(${Number(this.value) * DIGIT_DEGREE - 360}deg)`,
+        transform: `rotateX(${Number(this.digit) * DIGIT_DEGREE - 360}deg)`,
         transition: `${transDuration} ${transEaseFunction}`
       }
     },
@@ -112,7 +120,7 @@ export default defineComponent({
     }
   },
   watch: {
-    value (oldVal, newVal) {
+    digit (oldVal, newVal) {
       const digits = new Array(10).fill(0).map((item, index) => index)
       const minVal = oldVal < newVal ? oldVal : newVal
       const maxVal = oldVal < newVal ? newVal : oldVal
@@ -126,7 +134,7 @@ export default defineComponent({
       const digitFontSize = compStyles.getPropertyValue('font-size')
       this.digitHeight = Number(digitFontSize.replace('px', ''))
     }
-    this.showRange.push(Number(this.value))
+    this.showRange.push(Number(this.digit))
   },
   methods: {
     isNumber (val: number): boolean {

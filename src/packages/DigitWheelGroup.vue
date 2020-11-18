@@ -1,14 +1,14 @@
 <template>
   <div class="digit-wheel-group" :style="textStyle">
     <div
-      v-for="(digit, index) in digits"
+      v-for="(digit, index) in groupDigits"
       class="digit-wheel-group__col"
-      :style="gyroStyle"
+      :style="colStyle"
       :key="index"
     >
       <DigitWheel
         is-group
-        :value="digit"
+        :digit="digit"
         :index="index"
         :size="size"
         v-bind="$attrs"
@@ -34,8 +34,8 @@ import DigitWheel from './DigitWheel.vue'
 type IAnimationType = PropType<'default' | 'wheel' | 'countup'>
 type IEaseType = PropType<'Linear' | 'Ease'>
 
-export interface DigitProps {
-  digit: number; // the digit value
+export interface DigitsProps {
+  digits: number; // the digit value
   size: string; // the digit preset font-size or custom font-size
   gutter: number; // digit Spacing, default is 8px
   animation: string; // animation type
@@ -53,7 +53,7 @@ export default defineComponent({
     DigitWheel
   },
   props: {
-    digit: {
+    digits: {
       type: Number,
       default: 0,
       required: true
@@ -72,8 +72,8 @@ export default defineComponent({
     }
   },
   setup (props) {
-    const digits = computed((): string[] => {
-      let digits = numeral(props.digit).format(props.format)
+    const groupDigits = computed((): string[] => {
+      let digits = numeral(props.digits).format(props.format)
 
       const isEmpty = (val: any) => val == null || !(Object.keys(val) || val).length
 
@@ -82,7 +82,7 @@ export default defineComponent({
       return digits
     })
 
-    const gyroStyle = computed((): object => {
+    const colStyle = computed((): object => {
       return {
         // 'grid-template-columns': `repeat(${digits.value.length}, minmax(0, 1fr))`,
         padding: `0 ${props.gutter}px`
@@ -103,16 +103,16 @@ export default defineComponent({
     })
 
     onBeforeUpdate(() => {
-      // isUpdated.value = false
+      // console.log(props)
     })
 
     onUpdated(() => {
-      // isUpdated.value = true
+      // console.log(props)
     })
 
     return {
-      digits,
-      gyroStyle,
+      groupDigits,
+      colStyle,
       textStyle
     }
   }

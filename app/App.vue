@@ -3,37 +3,33 @@
     <DigitWheel
       size="10vw"
       use-ease="Quit.easeInOut"
-      :value="digit"
-      :index="0"
+      :digit="digit"
       :duration="1000"
     />
     <digit-wheel-group
       size="6em"
-      animation="wheel"
       format="0,0"
       use-ease="Quit.easeInOut"
       :stagger="true"
-      :digit="digits"
+      :digits="digits"
       :gutter="16"
       :duration="1000"
     />
     <DigitWheelGroup
-      animation="wheel"
       format="$0,0.00"
       size="120px"
       use-ease="Quit.easeInOut"
       :stagger="true"
-      :digit="bitcoin.bpi.USD.rate_float"
+      :digits="bitcoin.bpi.USD.rate_float"
       :gutter="8"
       :duration="666"
     />
     <DigitWheelGroup
-      animation="wheel"
       format="HHmmss"
       size="6xl"
       use-ease="Linear"
       :stagger="false"
-      :digit="datetime"
+      :digits="datetime"
       :gutter="8"
       :duration="100"
     />

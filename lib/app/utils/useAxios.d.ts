@@ -13,7 +13,7 @@ declare const useAxios: (url: string, config?: AxiosRequestConfig | undefined, o
         headers: any;
         config: {
             url?: string | undefined;
-            method?: "head" | "get" | "GET" | "delete" | "DELETE" | "HEAD" | "options" | "OPTIONS" | "post" | "POST" | "put" | "PUT" | "patch" | "PATCH" | "purge" | "PURGE" | "link" | "LINK" | "unlink" | "UNLINK" | undefined;
+            method?: "get" | "GET" | "delete" | "DELETE" | "head" | "HEAD" | "options" | "OPTIONS" | "post" | "POST" | "put" | "PUT" | "patch" | "PATCH" | "purge" | "PURGE" | "link" | "LINK" | "unlink" | "UNLINK" | undefined;
             baseURL?: string | undefined;
             transformRequest?: import("axios").AxiosTransformer | import("axios").AxiosTransformer[] | undefined;
             transformResponse?: import("axios").AxiosTransformer | import("axios").AxiosTransformer[] | undefined;
@@ -73,7 +73,7 @@ declare const useAxios: (url: string, config?: AxiosRequestConfig | undefined, o
     error: import("vue").Ref<{
         config: {
             url?: string | undefined;
-            method?: "head" | "get" | "GET" | "delete" | "DELETE" | "HEAD" | "options" | "OPTIONS" | "post" | "POST" | "put" | "PUT" | "patch" | "PATCH" | "purge" | "PURGE" | "link" | "LINK" | "unlink" | "UNLINK" | undefined;
+            method?: "get" | "GET" | "delete" | "DELETE" | "head" | "HEAD" | "options" | "OPTIONS" | "post" | "POST" | "put" | "PUT" | "patch" | "PATCH" | "purge" | "PURGE" | "link" | "LINK" | "unlink" | "UNLINK" | undefined;
             baseURL?: string | undefined;
             transformRequest?: import("axios").AxiosTransformer | import("axios").AxiosTransformer[] | undefined;
             transformResponse?: import("axios").AxiosTransformer | import("axios").AxiosTransformer[] | undefined;
@@ -134,7 +134,7 @@ declare const useAxios: (url: string, config?: AxiosRequestConfig | undefined, o
             headers: any;
             config: {
                 url?: string | undefined;
-                method?: "head" | "get" | "GET" | "delete" | "DELETE" | "HEAD" | "options" | "OPTIONS" | "post" | "POST" | "put" | "PUT" | "patch" | "PATCH" | "purge" | "PURGE" | "link" | "LINK" | "unlink" | "UNLINK" | undefined;
+                method?: "get" | "GET" | "delete" | "DELETE" | "head" | "HEAD" | "options" | "OPTIONS" | "post" | "POST" | "put" | "PUT" | "patch" | "PATCH" | "purge" | "PURGE" | "link" | "LINK" | "unlink" | "UNLINK" | undefined;
                 baseURL?: string | undefined;
                 transformRequest?: import("axios").AxiosTransformer | import("axios").AxiosTransformer[] | undefined;
                 transformResponse?: import("axios").AxiosTransformer | import("axios").AxiosTransformer[] | undefined;

@@ -1,5 +1,5 @@
-export interface DigitProps {
-    digit: number;
+export interface DigitsProps {
+    digits: number;
     size: string;
     gutter: number;
     animation: string;
@@ -9,7 +9,7 @@ export interface DigitProps {
     format: string;
 }
 declare const _default: import("vue").DefineComponent<{
-    digit: {
+    digits: {
         type: NumberConstructor;
         default: number;
         required: true;
@@ -27,16 +27,16 @@ declare const _default: import("vue").DefineComponent<{
         default: string;
     };
 }, {
-    digits: import("vue").ComputedRef<string[]>;
-    gyroStyle: import("vue").ComputedRef<object>;
+    groupDigits: import("vue").ComputedRef<string[]>;
+    colStyle: import("vue").ComputedRef<object>;
     textStyle: import("vue").ComputedRef<object>;
 }, unknown, {}, {}, import("vue").ComponentOptionsMixin, import("vue").ComponentOptionsMixin, Record<string, any>, string, import("vue").VNodeProps & import("vue").AllowedComponentProps & import("vue").ComponentCustomProps, Readonly<{
-    digit: number;
+    digits: number;
     gutter: number;
     format: string;
     size: string;
 } & {}>, {
-    digit: number;
+    digits: number;
     gutter: number;
     format: string;
     size: string;

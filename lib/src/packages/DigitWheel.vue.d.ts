@@ -1,6 +1,13 @@
 import { PropType } from 'vue';
+export interface DigitProps {
+    digit: number;
+    size: string;
+    animation: string;
+    duration: number;
+    useEase: string;
+}
 declare const _default: import("vue").DefineComponent<{
-    value: {
+    digit: {
         type: (StringConstructor | NumberConstructor)[];
         default: string;
     };
@@ -47,7 +54,7 @@ declare const _default: import("vue").DefineComponent<{
     ensureDigitClass(val: string): "is-letter" | "is-chinese" | "is-percentage" | "is-digit" | "is-symbol";
     getDigitHeight(): void;
 }, import("vue").ComponentOptionsMixin, import("vue").ComponentOptionsMixin, Record<string, any>, string, import("vue").VNodeProps & import("vue").AllowedComponentProps & import("vue").ComponentCustomProps, Readonly<{
-    value: string | number;
+    digit: string | number;
     index: number;
     size: string;
     animation: "default" | "wheel" | "countup";
@@ -56,7 +63,7 @@ declare const _default: import("vue").DefineComponent<{
     useEase: "Linear" | "Ease";
     isGroup: boolean;
 } & {}>, {
-    value: string | number;
+    digit: string | number;
     index: number;
     size: string;
     animation: "default" | "wheel" | "countup";

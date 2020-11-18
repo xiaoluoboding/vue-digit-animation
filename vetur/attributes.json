@@ -1,5 +1,5 @@
 {
-  "digit-wheel-group/digit": {
+  "digit-wheel-group/digits": {
     "version": ">=0.1.0",
     "description": "The Digit Value, It's required",
     "type": "number"
@@ -56,5 +56,51 @@
   "digit-wheel-group/format": {
     "description": "Proivde number format use numeral.js, Default: 0,0",
     "type": "string"
+  },
+  "digit-wheel/digit": {
+    "version": ">=0.1.0",
+    "description": "The Digit Value, It's required",
+    "type": "number"
+  },
+  "digit-wheel/size": {
+    "description": "Provide font-size utilities, Support custom units as while, Deafult: base, custom example: 72px",
+    "type": "string",
+    "options": ["xs", "sm", "base", "lg", "xl", "2xl", "3xl", "4xl", "5xl", "6xl"]
+  },
+  "digit-wheel/duration": {
+    "description": "Sets the length of time that animation completed, Default: 1000, Unit is (milliseconds)",
+    "type": "number"
+  },
+  "digit-wheel/use-ease": {
+    "description": "The easing functions you can choose, Default: Linear",
+    "type": "string",
+    "options": [
+      "Cubic.easeInOut",
+      "Cubic.easeIn",
+      "Cubic.easeOut",
+      "Sine.easeIn",
+      "Sine.easeOut",
+      "Sine.easeInOut",
+      "Quad.easeIn",
+      "Quad.easeOut",
+      "Quad.easeInOut",
+      "Quart.easeIn",
+      "Quart.easeOut",
+      "Quart.easeInOut",
+      "Quint.easeIn",
+      "Quint.easeOut",
+      "Quint.easeInOut",
+      "Expo.easeIn",
+      "Expo.easeOut",
+      "Expo.easeInOut",
+      "Circ.easeIn",
+      "Circ.easeOut",
+      "Circ.easeInOut",
+      "Back.easeIn",
+      "Back.easeOut",
+      "Back.easeInOut",
+      "Linear",
+      "Ease"
+    ]
   }
 }
