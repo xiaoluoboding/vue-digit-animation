@@ -7,7 +7,6 @@
   "jsdelivr": "lib/vue-digit-wheel.global.js",
   "module": "lib/vue-digit-wheel.esm-bundler.js",
   "types": "lib/vue-digit-wheel.d.ts",
-  "private": true,
   "author": {
     "name": "xiaoluoboding",
     "email": "xiaoluoboding@gmail.com"
