@@ -1,6 +1,6 @@
 # Digit Wheel
 
-A digit wheel animation component for Vue 3.
+A digit wheel animation component for Vue 2/3
 
 ## Project setup
 ```
