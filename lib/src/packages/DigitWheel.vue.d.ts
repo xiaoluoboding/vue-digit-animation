@@ -1,4 +1,4 @@
-import { PropType } from 'vue-demi';
+import { PropType } from 'vue';
 export interface DigitProps {
     digit: number;
     size: string;
@@ -6,7 +6,7 @@ export interface DigitProps {
     duration: number;
     useEase: string;
 }
-declare const _default: import("vue-demi").DefineComponent<{
+declare const _default: import("vue").DefineComponent<{
     digit: {
         type: (StringConstructor | NumberConstructor)[];
         default: string;
@@ -53,7 +53,7 @@ declare const _default: import("vue-demi").DefineComponent<{
     getTanFromDegrees(degrees: number): number;
     ensureDigitClass(val: string): "is-letter" | "is-chinese" | "is-percentage" | "is-digit" | "is-symbol";
     getDigitHeight(): void;
-}, import("vue-demi").ComponentOptionsMixin, import("vue-demi").ComponentOptionsMixin, Record<string, any>, string, import("vue-demi").VNodeProps & import("vue-demi").AllowedComponentProps & import("vue-demi").ComponentCustomProps, Readonly<{
+}, import("vue").ComponentOptionsMixin, import("vue").ComponentOptionsMixin, Record<string, any>, string, import("vue").VNodeProps & import("vue").AllowedComponentProps & import("vue").ComponentCustomProps, Readonly<{
     digit: string | number;
     index: number;
     size: string;

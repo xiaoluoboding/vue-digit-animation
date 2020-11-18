@@ -1,4 +1,4 @@
-import { App } from 'vue-demi';
+import { App } from 'vue';
 import DigitWheelGroup from './packages/DigitWheelGroup.vue';
 import DigitWheel from './packages/DigitWheel.vue';
 export declare const install: (app: App) => void;
