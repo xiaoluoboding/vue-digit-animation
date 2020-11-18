@@ -1,6 +1,7 @@
 export interface DigitProps {
     digit: number;
     size: string;
+    gutter: number;
     animation: string;
     duration: number;
     stagger: boolean;
@@ -11,6 +12,7 @@ declare const _default: import("vue").DefineComponent<{
     digit: {
         type: NumberConstructor;
         default: number;
+        required: true;
     };
     gutter: {
         type: NumberConstructor;
@@ -40,4 +42,4 @@ declare const _default: import("vue").DefineComponent<{
     size: string;
 }>;
 export default _default;
-//# sourceMappingURL=DigitalGyro.vue?vue&type=script&lang.d.ts.map
+//# sourceMappingURL=DigitWheelGroup.vue?vue&type=script&lang.d.ts.map

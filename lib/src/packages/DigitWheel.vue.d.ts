@@ -28,7 +28,7 @@ declare const _default: import("vue").DefineComponent<{
         type: PropType<"Linear" | "Ease">;
         default: string;
     };
-    isGyro: {
+    isGroup: {
         type: BooleanConstructor;
         default: boolean;
     };
@@ -54,7 +54,7 @@ declare const _default: import("vue").DefineComponent<{
     duration: number;
     stagger: boolean;
     useEase: "Linear" | "Ease";
-    isGyro: boolean;
+    isGroup: boolean;
 } & {}>, {
     value: string | number;
     index: number;
@@ -63,7 +63,7 @@ declare const _default: import("vue").DefineComponent<{
     duration: number;
     stagger: boolean;
     useEase: "Linear" | "Ease";
-    isGyro: boolean;
+    isGroup: boolean;
 }>;
 export default _default;
 //# sourceMappingURL=DigitWheel.vue?vue&type=script&lang.d.ts.map
