@@ -1,3 +1,12 @@
+## [0.1.6](https://github.com/xiaoluoboding/vue-digit-wheel/compare/v0.1.5...v0.1.6) (2020-11-18)
+
+
+### Features
+
+* only support vue 3 ([8aa0909](https://github.com/xiaoluoboding/vue-digit-wheel/commit/8aa09095b69785b0f19c3860acc851500d2bad39))
+
+
+
 ## [0.1.5](https://github.com/xiaoluoboding/vue-digit-wheel/compare/v0.1.0...v0.1.5) (2020-11-18)
 
 
