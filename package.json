@@ -1,6 +1,6 @@
 {
   "name": "vue-digit-wheel",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "A digit wheel animation component for Vue 2/3",
   "main": "lib/vue-digit-wheel.cjs.js",
   "unpkg": "lib/vue-digit-wheel.global.js",
@@ -14,6 +14,7 @@
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
+    "build:dts": "api-extractor run --local --verbose",
     "build:lib": "vue-cli-service build --mode lib --target lib --dest lib src/index.ts",
     "bundle": "npm run clean && rollup -c rollup.config.js",
     "test:unit": "vue-cli-service test:unit",
@@ -23,8 +24,8 @@
     "report": "vue-cli-service build --mode lib --target lib --name vue-digit-wheel --dest lib --report src/index.ts"
   },
   "files": [
-    "dist/*.js",
-    "dist/vue-draggable-next.d.ts",
+    "lib/*.js",
+    "lib/vue-digit-wheel.d.ts",
     "LICENSE",
     "README.md"
   ],
@@ -49,6 +50,7 @@
     "vue-demi": "^0.4.3"
   },
   "devDependencies": {
+    "@microsoft/api-extractor": "^7.12.0",
     "@rollup/plugin-babel": "^5.2.1",
     "@rollup/plugin-commonjs": "^16.0.0",
     "@rollup/plugin-node-resolve": "^10.0.0",

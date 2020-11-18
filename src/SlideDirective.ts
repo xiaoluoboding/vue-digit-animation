@@ -1,11 +1,11 @@
-import { App, ObjectDirective, DirectiveBinding } from 'vue'
+import { App, ObjectDirective, DirectiveBinding } from 'vue-demi'
 
 // const CENTER_DIGIT = -5
 let timer = 0
 
 interface VSlideProps {
-  value: string // the digit value
-  transition: string // transition easing function
+  value: string; // the digit value
+  transition: string; // transition easing function
 }
 
 // const sleep = (ms: number) => new Promise(resolve => setTimeout(resolve, ms))
@@ -14,7 +14,7 @@ export const directive: ObjectDirective = {
   mounted: (el: HTMLElement, binding: DirectiveBinding<string>) => {
     const { value } = binding
     if (value) {
-      el.classList.add(`slide-offset-5`)
+      el.classList.add('slide-offset-5')
       el.setAttribute('data-digit', value)
     }
   },
@@ -25,8 +25,8 @@ export const directive: ObjectDirective = {
     if (oldValue !== null) {
       if (timer) clearTimeout(timer)
 
-      el.classList.remove(`is-digit`)
-      el.classList.remove(`slide-offset-5`)
+      el.classList.remove('is-digit')
+      el.classList.remove('slide-offset-5')
       el.style.transition = ''
       // el.classList.add(`slide-offset-${newDigit}`)
     }
@@ -39,8 +39,8 @@ export const directive: ObjectDirective = {
 
     if (oldValue !== null) {
       timer = setTimeout(() => {
-        el.classList.add(`is-digit`)
-        el.classList.add(`slide-offset-5`)
+        el.classList.add('is-digit')
+        el.classList.add('slide-offset-5')
         // el.classList.remove(`slide-offset-${newDigit}`)
         el.style.transition = value.transition
       }, 17)
