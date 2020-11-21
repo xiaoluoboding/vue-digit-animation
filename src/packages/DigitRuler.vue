@@ -120,5 +120,4 @@ export default defineComponent({
     /* transition: all 666ms; */
   }
 }
-
 </style>

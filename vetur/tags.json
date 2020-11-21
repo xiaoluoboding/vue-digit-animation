@@ -1,5 +1,5 @@
 {
-  "digit-wheel-group": {
+  "digit-animation-group": {
     "description": "A group of <digit-wheel> or <digit-ruler> component for display multiple digits",
     "attributes": [
       "digits",

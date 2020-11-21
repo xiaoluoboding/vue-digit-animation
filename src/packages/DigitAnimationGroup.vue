@@ -1,8 +1,8 @@
 <template>
-  <div class="digit-wheel-group" :style="textStyle">
+  <div class="digit-animation-group" :style="textStyle">
     <div
       v-for="(digit, index) in groupDigits"
-      class="digit-wheel-group__col"
+      class="digit-animation-group__col"
       :style="colStyle"
       :key="index"
     >
@@ -23,15 +23,7 @@
 </template>
 
 <script lang="ts">
-import {
-  computed,
-  onMounted,
-  onBeforeUpdate,
-  onUpdated,
-  PropType,
-  defineComponent,
-  provide
-} from 'vue'
+import { computed, PropType, defineComponent, provide } from 'vue'
 import numeral from 'numeral'
 
 import { isDigit, fontSizePreset, ensureDigitClass } from '../utils/index'
@@ -45,7 +37,7 @@ export interface DigitsProps {
   digits: number; // the digit value
   size: string; // the digit preset font-size or custom font-size
   gutter: number; // digit Spacing, default is 8px
-  animation: string; // animation type
+  type: string; // animation type
   duration: number; // sets the length of time that animation completed, Unit is milliseconds(1000)
   stagger: boolean; // whether animation display with stagger effect
   useEase: string; // transition easing function
@@ -53,7 +45,7 @@ export interface DigitsProps {
 }
 
 export default defineComponent({
-  name: 'DigitWheelGroup',
+  name: 'DigitAnimationGroup',
   components: {
     DigitWheel,
     DigitRuler
@@ -76,7 +68,7 @@ export default defineComponent({
       type: String,
       default: 'base'
     },
-    animation: {
+    type: {
       type: String as IAnimationType,
       default: 'wheel'
     }
@@ -111,21 +103,9 @@ export default defineComponent({
     provide('textStyle', textStyle)
 
     const activeComponent = computed((): string => {
-      return props.animation === 'wheel'
+      return props.type === 'wheel'
         ? 'digit-wheel'
         : 'digit-ruler'
-    })
-
-    onMounted(() => {
-      // console.log(props)
-    })
-
-    onBeforeUpdate(() => {
-      // console.log(props)
-    })
-
-    onUpdated(() => {
-      // console.log(props)
     })
 
     return {
@@ -140,20 +120,36 @@ export default defineComponent({
 })
 </script>
 
-<style scoped>
-.digit-wheel-group {
+<style lang="scss" scoped>
+.digit-animation-group {
   height: 1em;
 }
 
-.digit-wheel-group__col {
+.digit-animation-group__col {
   display: inline-block;
+  height: 1em;
+  .digit {
+    display: inline-block;
+    overflow: hidden;
+    height: 1em;
+    line-height: 1;
+  }
+  .digit.is-symbol {
+    width: 1ch;
+  }
+
+  .digit.is-letter,
+  .digit.is-chinese,
+  .digit.is-percentage {
+    width: 1em;
+  }
 }
 
-.digit-wheel-group__col:first-child {
-  padding-left: 0 !important;
-}
+// .digit-animation-group__col:first-child {
+//   padding-left: 0 !important;
+// }
 
-.digit-wheel-group__col:last-child {
-  padding-right: 0 !important;
-}
+// .digit-animation-group__col:last-child {
+//   padding-right: 0 !important;
+// }
 </style>

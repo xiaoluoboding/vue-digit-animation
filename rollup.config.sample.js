@@ -76,8 +76,8 @@ export default {
   input: './src/index.ts',
   output: {
     file: isMinify
-      ? `./lib/vue-digit-wheel.common.min.js`
-      : `./lib/vue-digit-wheel.common.js`,
+      ? `./lib/vue-digit-animation.common.min.js`
+      : `./lib/vue-digit-animation.common.js`,
     format: 'cjs',
     sourcemap: false,
     exports: 'named'

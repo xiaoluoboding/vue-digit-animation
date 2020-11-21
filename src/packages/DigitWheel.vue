@@ -190,15 +190,5 @@ export default defineComponent({
     left: 0;
     width: 1ch;
   }
-
-  .digit.is-symbol {
-    width: 1ch;
-  }
-
-  .digit.is-letter,
-  .digit.is-chinese,
-  .digit.is-percentage {
-    width: 1em;
-  }
 }
 </style>
