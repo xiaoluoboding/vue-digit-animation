@@ -145,11 +145,11 @@ export default defineComponent({
   }
 }
 
-// .digit-animation-group__col:first-child {
-//   padding-left: 0 !important;
-// }
+.digit-animation-group__col:first-child {
+  padding-left: 0 !important;
+}
 
-// .digit-animation-group__col:last-child {
-//   padding-right: 0 !important;
-// }
+.digit-animation-group__col:last-child {
+  padding-right: 0 !important;
+}
 </style>

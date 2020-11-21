@@ -25,6 +25,13 @@ export interface DigitProps {
   useEase: string; // transition easing function
 }
 
+/* scss function */
+// @for $i from 0 through 10 {
+//   .slide-offset-#{10 - $i} {
+//     --slide-offset: #{$i - 10}em;
+//   }
+// }
+
 export default defineComponent({
   name: 'DigitRuler',
   props: {
@@ -100,10 +107,35 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-@for $i from 0 through 10 {
-  .slide-offset-#{10 - $i} {
-    --slide-offset: #{$i - 10}em;
-  }
+.slide-offset-10 {
+  --slide-offset: -10em;
+}
+.slide-offset-9 {
+  --slide-offset: -9em;
+}
+.slide-offset-8 {
+  --slide-offset: -8em;
+}
+.slide-offset-7 {
+  --slide-offset: -7em;
+}
+.slide-offset-6 {
+  --slide-offset: -6em;
+}
+.slide-offset-5 {
+  --slide-offset: -5em;
+}
+.slide-offset-4 {
+  --slide-offset: -4em;
+}
+.slide-offset-3 {
+  --slide-offset: -3em;
+}
+.slide-offset-2 {
+  --slide-offset: -2em;
+}
+.slide-offset-1 {
+  --slide-offset: -1em;
 }
 
 .digit-ruler {
@@ -117,7 +149,6 @@ export default defineComponent({
   }
   .digit.is-digit {
     transform: translateY(var(--slide-offset));
-    /* transition: all 666ms; */
   }
 }
 </style>

@@ -9,7 +9,7 @@
     "type": "string",
     "options": ["xs", "sm", "base", "lg", "xl", "2xl", "3xl", "4xl", "5xl", "6xl"]
   },
-  "digit-animation-group/animation": {
+  "digit-animation-group/type": {
     "description": "Digit Animation type, Default: wheel",
     "type": "string",
     "options": ["wheel", "slide"]
