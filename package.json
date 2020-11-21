@@ -1,12 +1,12 @@
 {
-  "name": "vue-digit-wheel",
+  "name": "vue-digit-animation",
   "version": "0.1.6",
-  "description": "A digit wheel animation component for Vue 3",
-  "main": "lib/vue-digit-wheel.cjs.js",
-  "unpkg": "lib/vue-digit-wheel.global.js",
-  "jsdelivr": "lib/vue-digit-wheel.global.js",
-  "module": "lib/vue-digit-wheel.esm-bundler.js",
-  "types": "lib/vue-digit-wheel.d.ts",
+  "description": "A digit animation component with wheel/slide effect for Vue 3",
+  "main": "lib/vue-digit-animation.cjs.js",
+  "unpkg": "lib/vue-digit-animation.global.js",
+  "jsdelivr": "lib/vue-digit-animation.global.js",
+  "module": "lib/vue-digit-animation.esm-bundler.js",
+  "types": "lib/vue-digit-animation.d.ts",
   "author": {
     "name": "xiaoluoboding",
     "email": "xiaoluoboding@gmail.com"
@@ -21,16 +21,16 @@
     "lint": "vue-cli-service lint",
     "clean": "rimraf lib/*",
     "changelog": "conventional-changelog -p angular -i CHANGELOG.md -s -r 0",
-    "report": "vue-cli-service build --mode lib --target lib --name vue-digit-wheel --dest lib --report src/index.ts"
+    "report": "vue-cli-service build --mode lib --target lib --name vue-digit-animation --dest lib --report src/index.ts"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/xiaoluoboding/vue-digit-wheel.git"
+    "url": "git+https://github.com/xiaoluoboding/vue-digit-animation.git"
   },
-  "homepage": "https://xiaoluoboding.github.io/vue-digit-wheel/",
+  "homepage": "https://xiaoluoboding.github.io/vue-digit-animation/",
   "files": [
     "lib/*.js",
-    "lib/vue-digit-wheel.d.ts",
+    "lib/vue-digit-animation.d.ts",
     "LICENSE",
     "README.md"
   ],
@@ -95,6 +95,7 @@
     "rollup-plugin-vue": "^6.0.0-beta.11",
     "sass": "^1.26.5",
     "sass-loader": "^8.0.2",
+    "tailwindcss": "npm:@tailwindcss/postcss7-compat",
     "typescript": "~3.9.3",
     "vue": "3.0.2",
     "vue-jest": "^5.0.0-0"
