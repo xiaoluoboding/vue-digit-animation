@@ -55,6 +55,14 @@ const fontSizePreset: any = {
 
 const circleLinkedDigit = new CircleLinkedList()
 
+const isNumber = (val: number): boolean => {
+  return typeof val === 'number' && !isNaN(val)
+}
+
+const isDigit = (val: string): boolean => {
+  return isNumber(parseInt(val, 10))
+}
+
 const UUIDGenerator = () =>
   (String(1e7) + -1e11).replace(/[018]/g, (c: string) =>
     (
@@ -62,6 +70,19 @@ const UUIDGenerator = () =>
       (crypto.getRandomValues(new Uint8Array(1))[0] & (15 >> (Number(c) / 4)))
     ).toString(16)
   )
+
+const ensureDigitClass = (val: string) => {
+  const isLetter = /[a-zA-Z]/
+  const isChinese = /[\u4E00-\u9FA5]/
+  const isDigit = /\d/
+  const isPercentage = /%/
+
+  if (isLetter.test(val)) return 'is-letter'
+  if (isChinese.test(val)) return 'is-chinese'
+  if (isPercentage.test(val)) return 'is-percentage'
+  if (isDigit.test(val)) return 'is-digit'
+  return 'is-symbol'
+}
 
 circleLinkedDigit
   .insert('0', 'head')
@@ -76,4 +97,11 @@ circleLinkedDigit
   .insert('1', '2')
   .insert('0', '1')
 
-export { easingMap, fontSizePreset, UUIDGenerator, circleLinkedDigit }
+export {
+  easingMap,
+  fontSizePreset,
+  circleLinkedDigit,
+  isDigit,
+  UUIDGenerator,
+  ensureDigitClass
+}

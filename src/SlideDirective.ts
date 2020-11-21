@@ -4,7 +4,7 @@ import { App, ObjectDirective, DirectiveBinding } from 'vue'
 let timer = 0
 
 interface VSlideProps {
-  value: string; // the digit value
+  digit: string; // the digit value
   transition: string; // transition easing function
 }
 
@@ -47,7 +47,7 @@ export const directive: ObjectDirective = {
     }
 
     if (value) {
-      el.setAttribute('data-digit', value.value)
+      el.setAttribute('data-digit', value.digit)
     }
   }
 }

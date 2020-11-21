@@ -1,9 +1,7 @@
 <template>
-  <div class="digit-wheel__wrap" :style="textStyle">
+  <div class="digit-wheel__wrap" :style="digitTextStyle">
     <div
-      v-if="isDigit(digit)"
       class="digit-wheel"
-      ref="digitWheel"
       :id="uuid"
       :style="digitWheelStyle"
       :data-digit="digit"
@@ -18,22 +16,24 @@
         {{ item.value }}
       </div>
     </div>
-    <div v-else class="digit" :class="ensureDigitClass(digit)">{{ digit }}</div>
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent, PropType } from 'vue'
+import { defineComponent, PropType, computed, reactive, watch, onMounted } from 'vue'
 
-import { easingMap, fontSizePreset, UUIDGenerator } from '../utils/index'
+import { easingMap, UUIDGenerator, fontSizePreset } from '../utils/index'
 
-type IAnimationType = PropType<'default' | 'wheel' | 'countup'>
 type IEaseType = PropType<'Linear' | 'Ease'>
 
+interface LocalState {
+  digitHeight: number;
+  showRange: number[];
+}
+
 export interface DigitProps {
-  digit: number; // the digit value
+  digit: string; // the digit value
   size: string; // the digit preset font-size or custom font-size
-  animation: string; // animation type
   duration: number; // Sets the length of time that animation completed, Unit is milliseconds(1000)
   useEase: string; // transition easing function
 }
@@ -55,10 +55,6 @@ export default defineComponent({
       type: String,
       default: 'base'
     },
-    animation: {
-      type: String as IAnimationType,
-      default: 'wheel'
-    },
     duration: {
       type: Number,
       default: 1000
@@ -76,95 +72,98 @@ export default defineComponent({
       default: false
     }
   },
-  data: vm => ({
-    uuid: UUIDGenerator(),
-    digitHeight: 0,
-    showRange: [vm.digit]
-  }),
-  computed: {
-    digitWheel (): object {
-      const digitValue = Number(this.digit)
+  setup (props) {
+    const uuid = UUIDGenerator()
 
-      this.getDigitHeight()
+    const state = reactive<LocalState>({
+      digitHeight: 0,
+      showRange: []
+    })
+
+    const getDigitHeight = (): void => {
+      const dwEl = document.getElementById(uuid)
+      if (dwEl) {
+        const compStyles = window.getComputedStyle(dwEl)
+        const digitFontSize = compStyles.getPropertyValue('font-size')
+        state.digitHeight = Number(digitFontSize.replace('px', ''))
+      }
+    }
+
+    const getTanFromDegrees = (degrees: number) => {
+      return Math.tan((degrees * Math.PI) / 180)
+    }
+
+    const digitWheel = computed((): object => {
+      const digitValue = Number(props.digit)
+
+      getDigitHeight()
 
       return new Array(10).fill(0).map((item, index) => {
-        const inRadius = (this.digitHeight / 2) / (this.getTanFromDegrees(DIGIT_DEGREE / 2))
-        // console.log(this.digitHeight, inRadius)
-        const isBackDigit = (digitValue < 5 ? digitValue + 5 : digitValue - 5) === index
-        const isHide = !this.showRange.includes(index)
+        const inRadius = (state.digitHeight / 2) / (getTanFromDegrees(DIGIT_DEGREE / 2))
+        const backDigit = (digitValue < 5 ? digitValue + 5 : digitValue - 5)
+        // hide wheel back digit
+        const isBackDigit = backDigit === index
+        // hide none animation path digit
+        const isHideDigit = !state.showRange.includes(index)
 
         return {
           value: index,
           style: {
             transform: `rotateX(${0 - index * DIGIT_DEGREE}deg) translateZ(${inRadius}px)`,
-            visibility: (isBackDigit || isHide) ? 'hidden' : 'visible'
+            visibility: (isBackDigit || isHideDigit) ? 'hidden' : 'visible'
           }
         }
       })
-    },
-    digitWheelStyle (): object {
-      const transDuration = `${this.duration + (this.stagger ? 200 : 0) * this.index}ms`
-      const transEaseFunction = easingMap[this.useEase] || 'ease'
+    })
+
+    const digitWheelStyle = computed((): object => {
+      const transDuration = `${props.duration + (props.stagger ? 200 : 0) * props.index}ms`
+      const transEaseFunction = easingMap[props.useEase] || 'ease'
 
       return {
-        transform: `rotateX(${Number(this.digit) * DIGIT_DEGREE - 360}deg)`,
+        transform: `rotateX(${Number(props.digit) * DIGIT_DEGREE - 360}deg)`,
         transition: `${transDuration} ${transEaseFunction}`
       }
-    },
-    textStyle (): object {
-      const sizePreset = Object.prototype.hasOwnProperty.call(fontSizePreset, this.size)
-        ? fontSizePreset[this.size]
-        : this.size
+    })
 
-      return this.isGroup ? {} : { fontSize: sizePreset }
-    }
-  },
-  watch: {
-    digit (oldVal, newVal) {
-      const digits = new Array(10).fill(0).map((item, index) => index)
-      const minVal = oldVal < newVal ? oldVal : newVal
-      const maxVal = oldVal < newVal ? newVal : oldVal
-      this.showRange = digits.slice(minVal, maxVal + 1)
-    }
-  },
-  mounted () {
-    const dwEl = document.getElementById(this.uuid)
-    if (dwEl) {
-      const compStyles = window.getComputedStyle(dwEl)
-      const digitFontSize = compStyles.getPropertyValue('font-size')
-      this.digitHeight = Number(digitFontSize.replace('px', ''))
-    }
-    this.showRange.push(Number(this.digit))
-  },
-  methods: {
-    isNumber (val: number): boolean {
-      return typeof val === 'number' && !isNaN(val)
-    },
-    isDigit (val: string) {
-      return this.isNumber(parseInt(val, 10))
-    },
-    getTanFromDegrees (degrees: number) {
-      return Math.tan((degrees * Math.PI) / 180)
-    },
-    ensureDigitClass (val: string) {
-      const isLetter = /[a-zA-Z]/
-      const isChinese = /[\u4E00-\u9FA5]/
-      const isDigit = /\d/
-      const isPercentage = /%/
+    const textStyle = computed((): object => {
+      const sizePreset = Object.prototype.hasOwnProperty.call(fontSizePreset, props.size)
+        ? fontSizePreset[props.size]
+        : props.size
+      return {
+        fontSize: sizePreset
+      }
+    })
 
-      if (isLetter.test(val)) return 'is-letter'
-      if (isChinese.test(val)) return 'is-chinese'
-      if (isPercentage.test(val)) return 'is-percentage'
-      if (isDigit.test(val)) return 'is-digit'
-      return 'is-symbol'
-    },
-    getDigitHeight (): void {
-      const dwEl = document.getElementById(this.uuid)
+    const digitTextStyle = props.isGroup ? {} : textStyle
+
+    watch(
+      () => props.digit,
+      (newVal, oldVal) => {
+        const oldNumber = Number(oldVal)
+        const newNumber = Number(newVal)
+        const digits = new Array(10).fill(0).map((item, index) => index)
+        const minVal = oldNumber < newNumber ? oldNumber : newNumber
+        const maxVal = oldNumber < newNumber ? newNumber : oldNumber
+        state.showRange = digits.slice(minVal, maxVal + 1)
+      }
+    )
+
+    onMounted(() => {
+      const dwEl = document.getElementById(uuid)
       if (dwEl) {
         const compStyles = window.getComputedStyle(dwEl)
         const digitFontSize = compStyles.getPropertyValue('font-size')
-        this.digitHeight = Number(digitFontSize.replace('px', ''))
+        state.digitHeight = Number(digitFontSize.replace('px', ''))
       }
+      state.showRange.push(Number(props.digit))
+    })
+
+    return {
+      uuid,
+      digitWheel,
+      digitTextStyle,
+      digitWheelStyle
     }
   }
 })

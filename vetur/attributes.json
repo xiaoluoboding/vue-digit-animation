@@ -9,6 +9,11 @@
     "type": "string",
     "options": ["xs", "sm", "base", "lg", "xl", "2xl", "3xl", "4xl", "5xl", "6xl"]
   },
+  "digit-wheel-group/animation": {
+    "description": "Digit Animation type, Default: wheel",
+    "type": "string",
+    "options": ["wheel", "slide"]
+  },
   "digit-wheel-group/gutter": {
     "description": "Digit Spacing, Default: 8, Unit is (px)",
     "type": "number"
@@ -72,6 +77,52 @@
     "type": "number"
   },
   "digit-wheel/use-ease": {
+    "description": "The easing functions you can choose, Default: Linear",
+    "type": "string",
+    "options": [
+      "Cubic.easeInOut",
+      "Cubic.easeIn",
+      "Cubic.easeOut",
+      "Sine.easeIn",
+      "Sine.easeOut",
+      "Sine.easeInOut",
+      "Quad.easeIn",
+      "Quad.easeOut",
+      "Quad.easeInOut",
+      "Quart.easeIn",
+      "Quart.easeOut",
+      "Quart.easeInOut",
+      "Quint.easeIn",
+      "Quint.easeOut",
+      "Quint.easeInOut",
+      "Expo.easeIn",
+      "Expo.easeOut",
+      "Expo.easeInOut",
+      "Circ.easeIn",
+      "Circ.easeOut",
+      "Circ.easeInOut",
+      "Back.easeIn",
+      "Back.easeOut",
+      "Back.easeInOut",
+      "Linear",
+      "Ease"
+    ]
+  },
+  "digit-ruler/digit": {
+    "version": ">=0.1.0",
+    "description": "The Digit Value, It's required",
+    "type": "number"
+  },
+  "digit-ruler/size": {
+    "description": "Provide font-size utilities, Support custom units as while, Deafult: base, custom example: 72px",
+    "type": "string",
+    "options": ["xs", "sm", "base", "lg", "xl", "2xl", "3xl", "4xl", "5xl", "6xl"]
+  },
+  "digit-ruler/duration": {
+    "description": "Sets the length of time that animation completed, Default: 1000, Unit is (milliseconds)",
+    "type": "number"
+  },
+  "digit-ruler/use-ease": {
     "description": "The easing functions you can choose, Default: Linear",
     "type": "string",
     "options": [

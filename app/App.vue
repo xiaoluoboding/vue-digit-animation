@@ -1,7 +1,7 @@
 <template>
   <div class="main">
-    <DigitWheel
-      size="10vw"
+    <digit-wheel
+      size="8vw"
       use-ease="Quit.easeInOut"
       :digit="digit"
       :duration="1000"
@@ -9,13 +9,24 @@
     <digit-wheel-group
       size="6em"
       format="0,0"
+      animation="wheel"
       use-ease="Quit.easeInOut"
       :stagger="true"
       :digits="digits"
       :gutter="16"
       :duration="1000"
     />
-    <DigitWheelGroup
+    <digit-wheel-group
+      size="6em"
+      format="0,0"
+      animation="slide"
+      use-ease="Quit.easeInOut"
+      :stagger="true"
+      :digits="digits"
+      :gutter="16"
+      :duration="1000"
+    />
+    <!-- <digit-wheel-group
       format="$0,0.00"
       size="120px"
       use-ease="Quit.easeInOut"
@@ -23,16 +34,17 @@
       :digits="bitcoin.bpi.USD.rate_float"
       :gutter="8"
       :duration="666"
-    />
-    <DigitWheelGroup
+    /> -->
+    <!-- <digit-wheel-group
       format="HHmmss"
       size="6xl"
+      animation="slide"
       use-ease="Linear"
       :stagger="false"
       :digits="datetime"
       :gutter="8"
       :duration="100"
-    />
+    /> -->
     <!-- <div class="operation">
       <button @click="randomDigit">Random Number</button>
     </div> -->
@@ -41,13 +53,11 @@
 
 <script lang="ts">
 import { defineComponent, ref, onMounted, onBeforeUnmount } from 'vue'
-import DigitWheelGroup from '../src/packages/DigitWheelGroup.vue'
 import { useAxios } from './utils/useAxios'
 
 const BITCOIN_URL = 'https://api.coindesk.com/v1/bpi/currentprice.json'
 
 export default defineComponent({
-  components: { DigitWheelGroup },
   name: 'App',
   setup () {
     const digit = ref(0)

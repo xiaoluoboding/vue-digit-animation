@@ -6,13 +6,18 @@
       :style="colStyle"
       :key="index"
     >
-      <DigitWheel
+      <component
+        v-if="isDigit(digit)"
         is-group
+        :is="activeComponent"
         :digit="digit"
         :index="index"
         :size="size"
         v-bind="$attrs"
       />
+      <div v-else class="digit" :class="ensureDigitClass(digit)">
+        {{ digit }}
+      </div>
     </div>
   </div>
 </template>
@@ -24,14 +29,16 @@ import {
   onBeforeUpdate,
   onUpdated,
   PropType,
-  defineComponent
+  defineComponent,
+  provide
 } from 'vue'
 import numeral from 'numeral'
 
-import { fontSizePreset } from '../utils/index'
+import { isDigit, fontSizePreset, ensureDigitClass } from '../utils/index'
 import DigitWheel from './DigitWheel.vue'
+import DigitRuler from './DigitRuler.vue'
 
-type IAnimationType = PropType<'default' | 'wheel' | 'countup'>
+type IAnimationType = PropType<'default' | 'wheel' | 'slide'>
 type IEaseType = PropType<'Linear' | 'Ease'>
 
 export interface DigitsProps {
@@ -39,18 +46,17 @@ export interface DigitsProps {
   size: string; // the digit preset font-size or custom font-size
   gutter: number; // digit Spacing, default is 8px
   animation: string; // animation type
-  duration: number; // Sets the length of time that animation completed, Unit is milliseconds(1000)
+  duration: number; // sets the length of time that animation completed, Unit is milliseconds(1000)
   stagger: boolean; // whether animation display with stagger effect
   useEase: string; // transition easing function
   format: string; // proivde number format use numeral (0,0)
 }
 
-// const el = ref<HTMLElement | null>(null)
-
 export default defineComponent({
   name: 'DigitWheelGroup',
   components: {
-    DigitWheel
+    DigitWheel,
+    DigitRuler
   },
   props: {
     digits: {
@@ -69,6 +75,10 @@ export default defineComponent({
     size: {
       type: String,
       default: 'base'
+    },
+    animation: {
+      type: String as IAnimationType,
+      default: 'wheel'
     }
   },
   setup (props) {
@@ -98,6 +108,14 @@ export default defineComponent({
       }
     })
 
+    provide('textStyle', textStyle)
+
+    const activeComponent = computed((): string => {
+      return props.animation === 'wheel'
+        ? 'digit-wheel'
+        : 'digit-ruler'
+    })
+
     onMounted(() => {
       // console.log(props)
     })
@@ -113,7 +131,10 @@ export default defineComponent({
     return {
       groupDigits,
       colStyle,
-      textStyle
+      textStyle,
+      activeComponent,
+      isDigit,
+      ensureDigitClass
     }
   }
 })

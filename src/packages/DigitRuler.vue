@@ -1,36 +1,44 @@
 <template>
-  <div
-    v-if="isDigit(value)"
-    v-slide="{ value, transition: digitStyle }"
-    class="digit is-digit"
-  >
-    <span>{{ verticalDigit }}</span>
+  <div class="digit-ruler" :style="digitTextStyle">
+    <div
+      v-slide="{ digit, transition: digitStyle }"
+      class="digit is-digit"
+      :id="uuid"
+      :data-digit="digit"
+    >
+      <span>{{ verticalDigit }}</span>
+    </div>
   </div>
-  <div class="digit" v-else>{{ value }}</div>
 </template>
 
 <script lang="ts">
 import { computed, defineComponent, PropType } from 'vue'
 
-import { easingMap, circleLinkedDigit } from '../utils/index'
+import { easingMap, circleLinkedDigit, UUIDGenerator, fontSizePreset } from '../utils/index'
 
-type IAnimationType = PropType<'default' | 'slide' | 'countup'>
 type IEaseType = PropType<'Linear' | 'Ease'>
+
+export interface DigitProps {
+  digit: number; // the digit value
+  size: string; // the digit preset font-size or custom font-size
+  duration: number; // Sets the length of time that animation completed, Unit is milliseconds(1000)
+  useEase: string; // transition easing function
+}
 
 export default defineComponent({
   name: 'DigitRuler',
   props: {
-    value: {
-      type: String,
+    digit: {
+      type: [String, Number],
       default: ''
     },
     index: {
       type: Number,
       default: 0
     },
-    animation: {
-      type: String as IAnimationType,
-      default: 'slide'
+    size: {
+      type: String,
+      default: 'base'
     },
     duration: {
       type: Number,
@@ -43,23 +51,21 @@ export default defineComponent({
     useEase: {
       type: String as IEaseType,
       default: 'Ease'
+    },
+    isGroup: {
+      type: Boolean,
+      default: false
     }
   },
-  setup(props) {
-    const isNumber = (val: number): boolean => {
-      return typeof val === 'number' && val === val
-    }
-
-    const isDigit = (val: string): boolean => {
-      return isNumber(parseInt(val, 10))
-    }
+  setup (props) {
+    const uuid = UUIDGenerator()
 
     const verticalDigit = computed((): string => {
-      const { value } = props
+      const { digit } = props
       // const slideDigit = Number(value) - 4
       // const offsetDigit = slideDigit < 0 ? slideDigit + 10 : slideDigit
       // const digitCollection = circleLinkedDigit.getCircleMiddle(offsetDigit.toString())
-      const digitCollection = circleLinkedDigit.getCircleMiddle(value)
+      const digitCollection = circleLinkedDigit.getCircleMiddle(String(digit))
 
       // return digitCollection.slice(4, 7).join(' ')
       return digitCollection.join(' ')
@@ -72,10 +78,22 @@ export default defineComponent({
       return `${transDuration} ${transEaseFunction}`
     })
 
+    const textStyle = computed((): object => {
+      const sizePreset = Object.prototype.hasOwnProperty.call(fontSizePreset, props.size)
+        ? fontSizePreset[props.size]
+        : props.size
+      return {
+        fontSize: sizePreset
+      }
+    })
+
+    const digitTextStyle = props.isGroup ? {} : textStyle
+
     return {
-      isDigit,
+      uuid,
       verticalDigit,
-      digitStyle
+      digitStyle,
+      digitTextStyle
     }
   }
 })
@@ -88,8 +106,19 @@ export default defineComponent({
   }
 }
 
-.digit.is-digit {
-  transform: translateY(var(--slide-offset));
-  /* transition: all 666ms; */
+.digit-ruler {
+  overflow: hidden;
+  height: 1em;
+  .digit {
+    line-height: 1;
+    width: 1ch;
+    display: inline-block;
+    height: 1em;
+  }
+  .digit.is-digit {
+    transform: translateY(var(--slide-offset));
+    /* transition: all 666ms; */
+  }
 }
+
 </style>

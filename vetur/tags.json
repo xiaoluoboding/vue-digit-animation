@@ -1,6 +1,6 @@
 {
   "digit-wheel-group": {
-    "description": "A group of <digit-wheel> component for display multiple digits",
+    "description": "A group of <digit-wheel> or <digit-ruler> component for display multiple digits",
     "attributes": [
       "digits",
       "size",
@@ -14,11 +14,20 @@
     "defaults": ["digit", "format"]
   },
   "digit-wheel": {
-    "description": "Single <digit-wheel> component for display single digit",
+    "description": "Single <digit-wheel> component for display single digit width wheel effect",
     "attributes": [
       "digit",
       "size",
-      "animation",
+      "duration",
+      "use-ease"
+    ],
+    "defaults": ["digit"]
+  },
+  "digit-ruler": {
+    "description": "Single <digit-ruler> component for display single digit with slide effect",
+    "attributes": [
+      "digit",
+      "size",
       "duration",
       "use-ease"
     ],
