@@ -1,7 +1,7 @@
 {
   "digit-animation-group/digits": {
     "version": ">=0.1.0",
-    "description": "The Digit Value, It's required",
+    "description": "The Digits Value, It's required",
     "type": "number"
   },
   "digit-animation-group/size": {
@@ -15,7 +15,7 @@
     "options": ["wheel", "slide"]
   },
   "digit-animation-group/gutter": {
-    "description": "Digit Spacing, Default: 8, Unit is (px)",
+    "description": "Digit Spacing, Default: 0, Unit is (px)",
     "type": "number"
   },
   "digit-animation-group/duration": {

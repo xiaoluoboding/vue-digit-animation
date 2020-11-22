@@ -1,13 +1,22 @@
 # Digit Animation
 
 <p align="left">
-  <a href="https://travis-ci.org/xiaoluoboding/vue-digit-animation"><img src="https://travis-ci.org/xiaoluoboding/vue-digit-animation.svg?branch=master"></a>
   <a href="https://www.npmjs.com/package/vue-digit-animation" target="_blank"><img src="https://img.shields.io/npm/v/vue-digit-animation.svg"></a>
   <a href="https://github.com/xiaoluoboding/vue-digit-animation"><img src="https://img.shields.io/github/stars/xiaoluoboding/vue-digit-animation.svg"></a>
   <a href="https://github.com/xiaoluoboding/vue-digit-animation"><img src="https://img.shields.io/github/license/xiaoluoboding/vue-digit-animation.svg"></a>
 </p>
 
 > A digit animation component with wheel/slide effect for Vue 3.
+
+## Preview
+
+### Vercel
+
+[vue-digit-animation.vercel.app/](vue-digit-animation.vercel.app/)
+
+### Codesandbox
+
+[![Edit Digit Wheel Animation For Vue 3 Demo](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/digit-wheel-animation-for-vue-3-demo-df5k2?fontsize=14&hidenavigation=1&theme=dark)
 
 ## Installation
 
@@ -67,7 +76,7 @@ Single `<digit-wheel>` component for display single digit with wheel effect
 
 **Template**
 
-```js
+```typescript
 interface DigitProps {
   digit: number; // the digit value
   size: string; // the digit preset font-size or custom font-size
@@ -93,7 +102,7 @@ Single `<digit-ruler>` component for display single digit with slide effect
 
 **Props**
 
-```js
+```typescript
 interface DigitProps {
   digit: number; // the digit value
   size: string; // the digit preset font-size or custom font-size
@@ -122,16 +131,16 @@ A group of `<digit-wheel>` or `<digit-ruler>` component for display multiple dig
 
 **Props**
 
-```js
+```typescript
 interface DigitsProps {
-  digits: number; // the digit value
-  size: string; // the digit preset font-size or custom font-size
-  gutter: number; // digit Spacing, default is 8px
+  digits: number; // the digits value
+  size: string; // the digits preset font-size or custom font-size
+  gutter: number; // digits Spacing, default is 0px
   type: string; // animation type
   duration: number; // sets the length of time that animation completed, Unit is milliseconds(1000)
   stagger: boolean; // whether animation display with stagger effect
   useEase: string; // transition easing function
-  format: string; // proivde number format use numeral (0,0)
+  format: string; // provide number format use numeral (0,0)
 }
 ```
 
