@@ -1,6 +1,6 @@
 {
   "name": "vue-digit-animation",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "A digit animation component with wheel/slide effect for Vue 3",
   "main": "lib/vue-digit-animation.cjs.js",
   "unpkg": "lib/vue-digit-animation.global.js",
@@ -31,6 +31,7 @@
   "files": [
     "lib/*.js",
     "lib/vue-digit-animation.d.ts",
+    "vetur/*.json",
     "LICENSE",
     "README.md"
   ],
