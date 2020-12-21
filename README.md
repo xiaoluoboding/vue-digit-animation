@@ -10,6 +10,14 @@
 
 ## Preview
 
+### Gif
+
+![vue-digit-animation](https://cdn.jsdelivr.net/gh/xiaoluoboding/image-hub@latest/images/2020/11/202011_vue-digit-animation.gif)
+
+### Online Demo
+
+[Edit on CodePen](https://codepen.io/xiaoluoboding/pen/NWrJGJq)
+
 ### Vercel
 
 [vue-digit-animation.vercel.app/](vue-digit-animation.vercel.app/)
