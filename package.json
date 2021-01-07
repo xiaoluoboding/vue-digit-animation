@@ -27,7 +27,7 @@
     "type": "git",
     "url": "git+https://github.com/xiaoluoboding/vue-digit-animation.git"
   },
-  "homepage": "https://xiaoluoboding.github.io/vue-digit-animation/",
+  "homepage": "https://vue-digit-animation.vercel.app/",
   "files": [
     "lib/*.js",
     "lib/vue-digit-animation.d.ts",

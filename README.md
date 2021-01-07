@@ -36,7 +36,7 @@ yarn add vue-digit-animation -S
 
 ## Import
 
-### Import all the components:
+### Import all the components
 
 ```js
 // main.js
@@ -50,7 +50,7 @@ createApp(App)
   .mount('#app')
 ```
 
-### Use in your component:
+### Use in your component
 
 ```js
 import { DigitAnimationGroup, DigitWheel, DigitRuler } from 'vue-digit-animation'
@@ -150,6 +150,19 @@ interface DigitsProps {
   useEase: string; // transition easing function
   format: string; // provide number format use numeral (0,0)
 }
+```
+
+### With TypeScript
+
+```typescript
+declare module '*.vue' {
+  import type { DefineComponent } from 'vue'
+  const component: DefineComponent<{}, {}, any>
+  export default component
+}
+
+// declare `vue-digit-animation` as a module
+declare module 'vue-digit-animation'
 ```
 
 ## License
