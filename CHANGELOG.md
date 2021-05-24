@@ -3,6 +3,7 @@
 
 ### Features
 
+* reduce package size ([823b712](https://github.com/xiaoluoboding/vue-digit-animation/commit/823b7126b0b369dcae9ed1a402c51fb75de4e713))
 * remove digit-ruler component ([4ada56f](https://github.com/xiaoluoboding/vue-digit-animation/commit/4ada56fb9fe081816e75dd9accf073482b95ed3e))
 * vetur support in the lib ([f12a412](https://github.com/xiaoluoboding/vue-digit-animation/commit/f12a41230d455c6846217020e965f346f36d2e46))
 
