@@ -94,23 +94,15 @@ export default defineComponent({
     }
 
     const digitWheel = computed((): object => {
-      const digitValue = Number(props.digit)
-
       getDigitHeight()
 
       return new Array(10).fill(0).map((item, index) => {
         const inRadius = (state.digitHeight / 2) / (getTanFromDegrees(DIGIT_DEGREE / 2))
-        const backDigit = (digitValue < 5 ? digitValue + 5 : digitValue - 5)
-        // hide wheel back digit
-        const isBackDigit = backDigit === index
-        // hide none animation path digit
-        const isHideDigit = !state.showRange.includes(index)
 
         return {
           value: index,
           style: {
-            transform: `rotateX(${0 - index * DIGIT_DEGREE}deg) translateZ(${inRadius}px)`,
-            visibility: (isBackDigit || isHideDigit) ? 'hidden' : 'visible'
+            transform: `rotateX(${0 - index * DIGIT_DEGREE}deg) translateZ(${inRadius}px)`
           }
         }
       })
@@ -182,6 +174,7 @@ export default defineComponent({
 
   .digit {
     line-height: 1;
+    backface-visibility: hidden;
   }
 
   .digit.is-digit {
