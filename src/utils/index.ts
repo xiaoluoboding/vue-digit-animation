@@ -1,7 +1,7 @@
 import './formatZhNumber'
 import './formatColonTime'
 import './formatLocalDate'
-import CircleLinkedList from './circleLinkedList'
+// import CircleLinkedList from './circleLinkedList'
 
 const easingMap = {
   'Cubic.easeInOut': 'cubic-bezier(0.65, 0, 0.35, 1)',
@@ -53,7 +53,7 @@ const fontSizePreset: any = {
   '6xl': '4rem'
 }
 
-const circleLinkedDigit = new CircleLinkedList()
+// const circleLinkedDigit = new CircleLinkedList()
 
 const isNumber = (val: number): boolean => {
   return typeof val === 'number' && !isNaN(val)
@@ -84,23 +84,23 @@ const ensureDigitClass = (val: string) => {
   return 'is-symbol'
 }
 
-circleLinkedDigit
-  .insert('0', 'head')
-  .insert('9', '0')
-  .insert('8', '9')
-  .insert('7', '8')
-  .insert('6', '7')
-  .insert('5', '6')
-  .insert('4', '5')
-  .insert('3', '4')
-  .insert('2', '3')
-  .insert('1', '2')
-  .insert('0', '1')
+// circleLinkedDigit
+//   .insert('0', 'head')
+//   .insert('9', '0')
+//   .insert('8', '9')
+//   .insert('7', '8')
+//   .insert('6', '7')
+//   .insert('5', '6')
+//   .insert('4', '5')
+//   .insert('3', '4')
+//   .insert('2', '3')
+//   .insert('1', '2')
+//   .insert('0', '1')
 
 export {
   easingMap,
   fontSizePreset,
-  circleLinkedDigit,
+  // circleLinkedDigit,
   isDigit,
   UUIDGenerator,
   ensureDigitClass

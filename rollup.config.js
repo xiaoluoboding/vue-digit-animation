@@ -133,7 +133,7 @@ function createConfig (format, output, plugins = []) {
   // during a single build.
   hasTSChecked = true
 
-  // const external = ['vue']
+  const external = ['vue', 'numeral']
 
   const nodePlugins = [resolve(), commonjs()]
 
@@ -141,7 +141,7 @@ function createConfig (format, output, plugins = []) {
     input: 'src/index.ts',
     // Global and Browser ESM builds inlines everything so that they can be
     // used alone.
-    // external,
+    external,
     plugins: [
       vue(),
       filesize(),
