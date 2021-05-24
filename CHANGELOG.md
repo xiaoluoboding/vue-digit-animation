@@ -1,8 +1,9 @@
-## [0.2.1](https://github.com/xiaoluoboding/vue-digit-animation/compare/v0.2.0...v0.2.1) (2020-11-24)
+# [0.3.0](https://github.com/xiaoluoboding/vue-digit-animation/compare/v0.2.0...v0.3.0) (2021-05-24)
 
 
 ### Features
 
+* remove digit-ruler component ([4ada56f](https://github.com/xiaoluoboding/vue-digit-animation/commit/4ada56fb9fe081816e75dd9accf073482b95ed3e))
 * vetur support in the lib ([f12a412](https://github.com/xiaoluoboding/vue-digit-animation/commit/f12a41230d455c6846217020e965f346f36d2e46))
 
 

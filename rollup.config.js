@@ -103,7 +103,7 @@ function createConfig (format, output, plugins = []) {
   output.sourcemap = !!process.env.SOURCE_MAP
   output.banner = banner
   output.externalLiveBindings = false
-  // output.globals = { vue: 'Vue' }
+  output.globals = { vue: 'Vue' }
 
   const isProductionBuild = /\.prod\.js$/.test(output.file)
   const isGlobalBuild = format === 'global'
@@ -133,7 +133,7 @@ function createConfig (format, output, plugins = []) {
   // during a single build.
   hasTSChecked = true
 
-  const external = ['vue']
+  // const external = ['vue']
 
   const nodePlugins = [resolve(), commonjs()]
 
@@ -141,7 +141,7 @@ function createConfig (format, output, plugins = []) {
     input: 'src/index.ts',
     // Global and Browser ESM builds inlines everything so that they can be
     // used alone.
-    external,
+    // external,
     plugins: [
       vue(),
       filesize(),
