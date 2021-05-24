@@ -5,7 +5,6 @@
       "digits",
       "size",
       "gutter",
-      "type",
       "duration",
       "stagger",
       "use-ease",
@@ -15,16 +14,6 @@
   },
   "digit-wheel": {
     "description": "Single <digit-wheel> component for display single digit with wheel effect",
-    "attributes": [
-      "digit",
-      "size",
-      "duration",
-      "use-ease"
-    ],
-    "defaults": ["digit"]
-  },
-  "digit-ruler": {
-    "description": "Single <digit-ruler> component for display single digit with slide effect",
     "attributes": [
       "digit",
       "size",

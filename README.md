@@ -53,13 +53,12 @@ createApp(App)
 ### Use in your component
 
 ```js
-import { DigitAnimationGroup, DigitWheel, DigitRuler } from 'vue-digit-animation'
+import { DigitAnimationGroup, DigitWheel } from 'vue-digit-animation'
 
 export default {
   components: {
     DigitAnimationGroup,
-    DigitWheel,
-    DigitRuler
+    DigitWheel
   }
   ...
 }
@@ -93,32 +92,6 @@ interface DigitProps {
 }
 ```
 
-> DigitRuler
-
-Single `<digit-ruler>` component for display single digit with slide effect
-
-**Template**
-
-```html
-<digit-ruler
-  size="6xl"
-  use-ease="Quit.easeInOut"
-  :digit="6"
-  :duration="1000"
-/>
-```
-
-**Props**
-
-```typescript
-interface DigitProps {
-  digit: number; // the digit value
-  size: string; // the digit preset font-size or custom font-size
-  duration: number; // Sets the length of time that animation completed, Unit is milliseconds(1000)
-  useEase: string; // transition easing function
-}
-```
-
 ### DigitAnimationGroup
 
 A group of `<digit-wheel>` or `<digit-ruler>` component for display multiple digits
@@ -127,7 +100,6 @@ A group of `<digit-wheel>` or `<digit-ruler>` component for display multiple dig
 
 ```html
 <digit-animation-group
-  type="wheel"
   size="6em"
   format="0,0"
   use-ease="Quit.easeInOut"
@@ -144,7 +116,6 @@ interface DigitsProps {
   digits: number; // the digits value
   size: string; // the digits preset font-size or custom font-size
   gutter: number; // digits Spacing, default is 0px
-  type: string; // animation type
   duration: number; // sets the length of time that animation completed, Unit is milliseconds(1000)
   stagger: boolean; // whether animation display with stagger effect
   useEase: string; // transition easing function

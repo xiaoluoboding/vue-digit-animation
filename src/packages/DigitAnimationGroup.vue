@@ -6,10 +6,9 @@
       :style="colStyle"
       :key="index"
     >
-      <component
+      <digit-wheel
         v-if="isDigit(digit)"
         is-group
-        :is="activeComponent"
         :digit="digit"
         :index="index"
         :size="size"
@@ -28,7 +27,7 @@ import numeral from 'numeral'
 
 import { isDigit, fontSizePreset, ensureDigitClass } from '../utils/index'
 import DigitWheel from './DigitWheel.vue'
-import DigitRuler from './DigitRuler.vue'
+// import DigitRuler from './DigitRuler.vue'
 
 type IAnimationType = PropType<'default' | 'wheel' | 'slide'>
 type IEaseType = PropType<'Linear' | 'Ease'>
@@ -37,7 +36,6 @@ export interface DigitsProps {
   digits: number; // the digit value
   size: string; // the digit preset font-size or custom font-size
   gutter: number; // digit Spacing, default is 8px
-  type: string; // animation type
   duration: number; // sets the length of time that animation completed, Unit is milliseconds(1000)
   stagger: boolean; // whether animation display with stagger effect
   useEase: string; // transition easing function
@@ -47,8 +45,7 @@ export interface DigitsProps {
 export default defineComponent({
   name: 'DigitAnimationGroup',
   components: {
-    DigitWheel,
-    DigitRuler
+    DigitWheel
   },
   props: {
     digits: {
@@ -67,10 +64,6 @@ export default defineComponent({
     size: {
       type: String,
       default: 'base'
-    },
-    type: {
-      type: String as IAnimationType,
-      default: 'wheel'
     }
   },
   setup (props) {
@@ -102,17 +95,10 @@ export default defineComponent({
 
     provide('textStyle', textStyle)
 
-    const activeComponent = computed((): string => {
-      return props.type === 'wheel'
-        ? 'digit-wheel'
-        : 'digit-ruler'
-    })
-
     return {
       groupDigits,
       colStyle,
       textStyle,
-      activeComponent,
       isDigit,
       ensureDigitClass
     }
